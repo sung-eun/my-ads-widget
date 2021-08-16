@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="default_horizontal_margin">16dp</dimen>
+    <dimen name="default_vertical_margin">16dp</dimen>
+    <dimen name="list_button_height">56dp</dimen>
+</resources>
