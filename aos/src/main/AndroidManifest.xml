@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Myads">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.home.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.Myads.NoActionBar">
             <intent-filter>
