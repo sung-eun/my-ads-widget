@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.essie.myads.R
+import com.essie.myads.common.GoogleSignInClientUtils
 import com.essie.myads.databinding.ActivityMainBinding
 
 
@@ -18,7 +19,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        silentSignIn()
         setupToolbar()
+    }
+
+    private fun silentSignIn() {
+        GoogleSignInClientUtils.getGoogleSignInClient(this).silentSignIn()
     }
 
     private fun setupToolbar() {

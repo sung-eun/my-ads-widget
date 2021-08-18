@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">My Ads Widget</string>
 
-    <string name="title_setting_account">Accounts</string>
-    <string name="add_account">Add account</string>
+    <string name="title_setting_account">Account</string>
+    <string name="connect_account">Connect account</string>
+    <string name="unknown">Unknown</string>
 
     <string name="title_setting_widget">Widget preferences</string>
     <string name="period">Period</string>
