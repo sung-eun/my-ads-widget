@@ -1,4 +1,4 @@
-package com.myads.adsense.data.datasource
+package com.myads.adsense.data.datasource.remote
 
 import com.myads.adsense.data.model.response.ResponseAccountList
 import io.ktor.client.*
@@ -9,10 +9,18 @@ import io.ktor.client.request.*
 
 private const val BASE_URL = "https://adsense.googleapis.com/v2"
 
-class AdSenseRemoteDataSource(private val debuggable: Boolean) {
+class AdSenseRemoteDataSource(
+    private val headerProvider: IHttpHeaderProvider,
+    private val debuggable: Boolean
+) {
+
     private val httpClient = HttpClient {
         install(Logging) {
-            logger = Logger.DEFAULT
+            logger = object : Logger {
+                override fun log(message: String) {
+                    println(message)
+                }
+            }
             level = if (debuggable) LogLevel.ALL else LogLevel.NONE
         }
 
@@ -26,6 +34,7 @@ class AdSenseRemoteDataSource(private val debuggable: Boolean) {
     suspend fun getAccounts(): ResponseAccountList {
         return httpClient.get {
             url("$BASE_URL/accounts")
+            header("Authorization", "Bearer ${headerProvider.getAccessToken()}")
         }
     }
 }

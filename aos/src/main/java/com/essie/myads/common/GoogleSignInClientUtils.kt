@@ -11,7 +11,7 @@ object GoogleSignInClientUtils {
     fun getGoogleSignInClient(activity: Activity): GoogleSignInClient {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestProfile()
-            .requestIdToken(activity.getString(R.string.google_server_client_id))
+            .requestServerAuthCode(activity.getString(R.string.google_server_client_id))
             .requestScopes(Scope("https://www.googleapis.com/auth/adsense.readonly"))
             .build()
 

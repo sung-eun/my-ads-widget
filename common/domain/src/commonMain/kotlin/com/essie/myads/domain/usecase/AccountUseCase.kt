@@ -2,13 +2,29 @@ package com.essie.myads.domain.usecase
 
 import com.essie.myads.domain.entity.Account
 import com.essie.myads.domain.repository.IAccountRepository
+import com.essie.myads.domain.repository.IAuthRepository
 
-class AccountUseCase(private val repository: IAccountRepository) {
+class AccountUseCase(
+    private val authRepository: IAuthRepository,
+    private val accountRepository: IAccountRepository
+) {
+    suspend fun fetchAndSaveAuthToken(authCode: String) {
+        authRepository.fetchAndSaveAuthToken(authCode)
+    }
+
+    suspend fun refreshToken() {
+        authRepository.refreshToken()
+    }
+
+    suspend fun removeTokenInfo() {
+        authRepository.removeAuthToken()
+    }
+
     suspend fun getAccounts(): List<Account> {
-        return repository.getAccounts()
+        return accountRepository.getAccounts()
     }
 
     suspend fun connectAccount(account: Account) {
-        repository.connectAccount(account)
+        accountRepository.connectAccount(account)
     }
 }

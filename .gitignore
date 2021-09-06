@@ -86,6 +86,9 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 
+# config
+feature/adsense/data/src/commonMain/kotlin/com/myads/adsense/data/datasource/remote/ServerConfig.kt
+
 # ios
 # Mac OS X
 ios/*.DS_Store

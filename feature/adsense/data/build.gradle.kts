@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    kotlin("plugin.serialization") version "1.5.20"
     id("com.android.library")
 }
 
@@ -28,6 +29,7 @@ kotlin {
     }
 
     val ktorVersion = "1.6.1"
+    val kvaultVersion = "1.7.0"
 
     sourceSets {
         val commonMain by getting {
@@ -35,31 +37,21 @@ kotlin {
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
                 implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+                implementation("com.liftric:kvault:$kvaultVersion")
                 implementation(project(":common:domain"))
             }
         }
-        val commonTest by getting
-        val androidMain by getting {
-            dependencies {
-                implementation("io.ktor:ktor-client-cio:$ktorVersion")
-            }
-        }
-        val androidTest by getting
-        val iosMain by getting {
-            dependencies {
-                implementation("io.ktor:ktor-client-ios:$ktorVersion")
-            }
-        }
-        val iosTest by getting
+        val androidMain by getting
+        val iosMain by getting
     }
 }
 
 android {
-    compileSdkVersion(30)
+    compileSdkVersion(31)
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdkVersion(23)
-        targetSdkVersion(30)
+        targetSdkVersion(31)
     }
     packagingOptions {
         exclude("META-INF/*.kotlin_module")
