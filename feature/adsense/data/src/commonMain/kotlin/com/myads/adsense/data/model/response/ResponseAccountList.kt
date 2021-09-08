@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResponseAccountList(
-    @SerialName("accounts") val accounts: List<ResponseAccount>?,
-    @SerialName("nextPageToken") val nextPageToken: String?
+    @SerialName("accounts") val accounts: List<ResponseAccount> = emptyList(),
+    @SerialName("nextPageToken") val nextPageToken: String? = null
 )

@@ -87,6 +87,8 @@ lint/tmp/
 # lint/reports/
 
 # config
+aos/src/debug/res/values/config.xml
+aos/src/main/res/values/config.xml
 feature/adsense/data/src/commonMain/kotlin/com/myads/adsense/data/datasource/remote/ServerConfig.kt
 
 # ios

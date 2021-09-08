@@ -1,8 +1,8 @@
 package com.essie.myads.domain.repository
 
-import com.essie.myads.domain.entity.Account
+import com.essie.myads.domain.entity.AdAccount
 
 interface IAccountRepository {
-    suspend fun getAccounts(): List<Account>
-    suspend fun connectAccount(account: Account)
+    suspend fun getAccounts(): List<AdAccount>
+    suspend fun connectAccount(account: AdAccount)
 }

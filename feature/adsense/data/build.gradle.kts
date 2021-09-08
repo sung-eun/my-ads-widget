@@ -24,7 +24,7 @@ kotlin {
         summary = "AdSense Data Shared Module"
         homepage = ""
         ios.deploymentTarget = "14.1"
-        frameworkName = "data"
+        frameworkName = "feature:adsense:data"
         // set path to your ios project podfile, e.g. podfile = project.file("../iosApp/Podfile")
     }
 

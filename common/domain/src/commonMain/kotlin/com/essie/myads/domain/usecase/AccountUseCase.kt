@@ -1,6 +1,6 @@
 package com.essie.myads.domain.usecase
 
-import com.essie.myads.domain.entity.Account
+import com.essie.myads.domain.entity.AdAccount
 import com.essie.myads.domain.repository.IAccountRepository
 import com.essie.myads.domain.repository.IAuthRepository
 
@@ -20,11 +20,11 @@ class AccountUseCase(
         authRepository.removeAuthToken()
     }
 
-    suspend fun getAccounts(): List<Account> {
+    suspend fun getAccounts(): List<AdAccount> {
         return accountRepository.getAccounts()
     }
 
-    suspend fun connectAccount(account: Account) {
+    suspend fun connectAccount(account: AdAccount) {
         accountRepository.connectAccount(account)
     }
 }

@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResponseAccount(
-    @SerialName("name") val name: String?,
-    @SerialName("displayName") val displayName: String?,
-    @SerialName("createTime") val createTime: String?
+    @SerialName("name") val name: String? = null,
+    @SerialName("displayName") val displayName: String? = null,
+    @SerialName("createTime") val createTime: String? = null
 )
