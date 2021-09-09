@@ -24,6 +24,7 @@ data class ResponseReportCell(
 
 @Serializable
 data class ResponseReportValue(
+
     @SerialName("value") val value: String? = null
 )
 

@@ -54,7 +54,7 @@ class AdSenseRemoteDataSource(
         }
     }
 
-    suspend fun getBalance(accountId: String): ResponsePayment? {
+    suspend fun getUnpaidAmount(accountId: String): ResponsePayment? {
         val payments = httpClient.get<ResponsePayments> {
             url("$BASE_URL/$accountId/payments")
             header("Authorization", "Bearer ${headerProvider.getAccessToken()}")

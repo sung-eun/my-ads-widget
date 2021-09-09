@@ -24,7 +24,7 @@ class AccountUseCase(
         return accountRepository.getAccounts()
     }
 
-    suspend fun connectAccount(account: AdAccount) {
-        accountRepository.connectAccount(account)
+    suspend fun selectAccount(account: AdAccount) {
+        accountRepository.selectAccount(account)
     }
 }
