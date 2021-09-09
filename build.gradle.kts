@@ -1,5 +1,6 @@
 buildscript {
     val kotlin_version by extra("1.5.10")
+    val compose_version by extra ("1.0.2")
 
     repositories {
         gradlePluginPortal()
