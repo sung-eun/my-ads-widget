@@ -12,21 +12,22 @@ class AdsRepository(private val dataSource: AdSenseRemoteDataSource) : IAdsRepos
         val responseReport = dataSource.getReports(account.id, dateRange)
         val responsePayment = dataSource.getUnpaidAmount(account.id)
         return DashboardData(
-            impression = getReportValue(responseReport, "IMPRESSIONS"),
-            click = getReportValue(responseReport, "CLICKS"),
-            recentlyEstimatedIncome = getReportValue(responseReport, "ESTIMATED_EARNINGS"),
+            impressions = getReportValue(responseReport, "IMPRESSIONS")?.toLongOrNull() ?: 0L,
+            clicks = getReportValue(responseReport, "CLICKS")?.toLongOrNull() ?: 0L,
+            recentlyEstimatedIncome = getReportValue(responseReport, "ESTIMATED_EARNINGS")
+                ?: "$0.00",
             dateRange = dateRange,
             totalUnpaidAmount = responsePayment?.amount ?: "0"
         )
     }
 
-    private fun getReportValue(response: ResponseReport, type: String): Long {
-        response.totalCell ?: return 0L
+    private fun getReportValue(response: ResponseReport, type: String): String? {
+        response.totalCell ?: return null
         val typeIndex = response.headers?.indexOfFirst { it.name == type } ?: -1
         return if (typeIndex < 0) {
-            0L
+            null
         } else {
-            response.totalCell.cells?.get(typeIndex)?.value?.toLongOrNull() ?: 0L
+            response.totalCell.cells?.get(typeIndex)?.value
         }
     }
 }
