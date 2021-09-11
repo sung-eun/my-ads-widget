@@ -1,4 +1,4 @@
-package com.essie.myads.ui.theme
+package com.essie.myads.common.ui.theme
 
 import androidx.compose.material.darkColors
 import androidx.compose.ui.graphics.Color

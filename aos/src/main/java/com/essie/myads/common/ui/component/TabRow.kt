@@ -1,4 +1,4 @@
-package com.essie.myads.ui.component
+package com.essie.myads.common.ui.component
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.essie.myads.ui.home.HomeScreen
-import com.essie.myads.ui.theme.AppTheme
+import com.essie.myads.common.ui.theme.AppTheme
 
 @Composable
 fun CustomTabRow(

@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -16,9 +15,9 @@ import com.essie.myads.common.GoogleSignInClientUtils
 import com.essie.myads.databinding.ActivityMainBinding
 import com.essie.myads.domain.entity.DashboardData
 import com.essie.myads.domain.entity.DateRange
-import com.essie.myads.ui.component.CustomTabRow
+import com.essie.myads.common.ui.component.CustomTabRow
 import com.essie.myads.ui.home.overview.OverviewBody
-import com.essie.myads.ui.theme.AppTheme
+import com.essie.myads.common.ui.theme.AppTheme
 
 
 class MainActivity : AppCompatActivity() {

@@ -14,8 +14,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.essie.myads.R
+import com.essie.myads.common.ui.theme.AppTheme
 import com.essie.myads.domain.entity.DashboardData
-import com.essie.myads.ui.theme.AppTheme
 
 private val DefaultPadding = 12.dp
 
