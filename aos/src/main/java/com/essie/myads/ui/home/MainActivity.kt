@@ -1,13 +1,24 @@
 package com.essie.myads.ui.home
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import com.essie.myads.R
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.essie.myads.common.GoogleSignInClientUtils
 import com.essie.myads.databinding.ActivityMainBinding
+import com.essie.myads.domain.entity.DashboardData
+import com.essie.myads.domain.entity.DateRange
+import com.essie.myads.ui.component.CustomTabRow
+import com.essie.myads.ui.home.overview.OverviewBody
+import com.essie.myads.ui.theme.AppTheme
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,32 +29,53 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.composeView.setContent {
+            AppMain()
+        }
 
         silentSignIn()
-        setupToolbar()
     }
 
     private fun silentSignIn() {
         GoogleSignInClientUtils.getGoogleSignInClient(this).silentSignIn()
     }
 
-    private fun setupToolbar() {
-        setSupportActionBar(binding.toolbar)
+    @Composable
+    fun AppMain() {
+        AppTheme {
+            val allScreens = HomeScreen.values().toList()
+            val navController = rememberNavController()
+            val backstackEntry = navController.currentBackStackEntryAsState()
+            val currentScreen = HomeScreen.fromRoute(backstackEntry.value?.destination?.route)
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
-        val navController = navHostFragment.navController
-        setupActionBarWithNavController(
-            this,
-            navController
-        )
+            Scaffold(
+                topBar = {
+                    CustomTabRow(
+                        allScreens = allScreens,
+                        onTabSelected = { navController.navigate(it.name) },
+                        currentScreen = currentScreen
+                    )
+                }
+            ) { innerPadding ->
+                HomeNavHost(navController, modifier = Modifier.padding(innerPadding))
+            }
+        }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            onBackPressed()
-            return true
+    @Composable
+    fun HomeNavHost(navController: NavHostController, modifier: Modifier = Modifier) {
+        NavHost(
+            navController = navController,
+            startDestination = HomeScreen.OVERVIEW.name,
+            modifier = modifier
+        ) {
+            composable(HomeScreen.OVERVIEW.name) {
+                OverviewBody(DashboardData(0L, 0L, "$0.00", DateRange.LAST_7DAYS, "$0.00"))
+            }
+            composable(HomeScreen.SETTINGS.name) {
+
+            }
         }
-        return super.onOptionsItemSelected(item)
     }
 }
+

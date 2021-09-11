@@ -46,14 +46,13 @@ val Typography = Typography(
     h6 = TextStyle(
         fontWeight = FontWeight.Normal,
         fontSize = 18.sp,
-        lineHeight = 20.sp,
         fontFamily = NotoSerifFontFamily,
         letterSpacing = 3.sp
     ),
     subtitle1 = TextStyle(
         fontWeight = FontWeight.Light,
         fontSize = 14.sp,
-        lineHeight = 20.sp,
+        lineHeight = 16.sp,
         letterSpacing = 3.sp
     ),
     subtitle2 = TextStyle(
