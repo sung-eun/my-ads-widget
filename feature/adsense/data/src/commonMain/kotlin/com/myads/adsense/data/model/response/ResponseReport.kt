@@ -30,7 +30,7 @@ data class ResponseReportValue(
 
 @Serializable
 data class ResponseReportDate(
-    @SerialName("year") val year: String? = null,
-    @SerialName("month") val month: String? = null,
-    @SerialName("day") val day: String? = null
+    @SerialName("year") val year: Int? = null,
+    @SerialName("month") val month: Int? = null,
+    @SerialName("day") val day: Int? = null
 )

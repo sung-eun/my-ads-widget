@@ -6,4 +6,5 @@ import com.essie.myads.domain.entity.DateRange
 
 interface IAdsRepository {
     suspend fun getAdsData(account: AdAccount, dateRange: DateRange): DashboardData
+    suspend fun getAdsData(accountName: String, dateRange: DateRange): DashboardData
 }

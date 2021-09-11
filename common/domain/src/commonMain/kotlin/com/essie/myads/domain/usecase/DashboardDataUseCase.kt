@@ -12,4 +12,11 @@ class DashboardDataUseCase(private val repository: IAdsRepository) {
     ): DashboardData {
         return repository.getAdsData(account, dateRange)
     }
+
+    suspend fun getDashboardData(
+        accountName: String,
+        dateRange: DateRange = DateRange.LAST_7DAYS
+    ): DashboardData {
+        return repository.getAdsData(accountName, dateRange)
+    }
 }

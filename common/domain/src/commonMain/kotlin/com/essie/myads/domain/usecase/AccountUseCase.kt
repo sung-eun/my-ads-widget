@@ -3,6 +3,8 @@ package com.essie.myads.domain.usecase
 import com.essie.myads.domain.entity.AdAccount
 import com.essie.myads.domain.repository.IAccountRepository
 import com.essie.myads.domain.repository.IAuthRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class AccountUseCase(
     private val authRepository: IAuthRepository,
@@ -26,5 +28,13 @@ class AccountUseCase(
 
     suspend fun selectAccount(account: AdAccount) {
         accountRepository.selectAccount(account)
+    }
+
+    suspend fun getSelectedAccountName(): String? {
+        val cachedAccountName = accountRepository.getSelectAccountName()
+        if (cachedAccountName.isEmpty()) {
+            return getAccounts().firstOrNull()?.id
+        }
+        return cachedAccountName
     }
 }

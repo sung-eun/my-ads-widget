@@ -10,7 +10,6 @@ import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.features.logging.*
 import io.ktor.client.request.*
-import io.ktor.http.*
 
 private const val BASE_URL = "https://adsense.googleapis.com/v2"
 
@@ -47,10 +46,13 @@ class AdSenseRemoteDataSource(
         return httpClient.get {
             url("$BASE_URL/$accountId/reports:generate")
             header("Authorization", "Bearer ${headerProvider.getAccessToken()}")
-            parametersOf(
-                "dateRange" to listOf(if (dateRange == DateRange.LAST_30DAYS) "LAST_30_DAYS" else "LAST_7_DAYS"),
-                "metrics" to listOf("IMPRESSIONS", "CLICKS", "ESTIMATED_EARNINGS")
+            parameter(
+                "dateRange",
+                if (dateRange == DateRange.LAST_30DAYS) "LAST_30_DAYS" else "LAST_7_DAYS"
             )
+            parameter("metrics", "IMPRESSIONS")
+            parameter("metrics", "CLICKS")
+            parameter("metrics", "ESTIMATED_EARNINGS")
         }
     }
 

@@ -7,6 +7,9 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -16,17 +19,38 @@ import androidx.compose.ui.unit.dp
 import com.essie.myads.R
 import com.essie.myads.common.ui.theme.AppTheme
 import com.essie.myads.domain.entity.DashboardData
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import kotlinx.coroutines.FlowPreview
 
 private val DefaultPadding = 12.dp
 
+@FlowPreview
 @Composable
-fun OverviewBody(dashboardData: DashboardData) {
+fun OverviewBody(overviewViewModel: OverviewViewModel) {
+    val refreshing by overviewViewModel.refreshing.collectAsState(false)
+    val dashboardData by overviewViewModel.dashboardData.observeAsState()
+
+    SwipeRefresh(
+        state = rememberSwipeRefreshState(refreshing),
+        onRefresh = { overviewViewModel.pullToRefresh() }) {
+        OverviewContent(dashboardData ?: DashboardData())
+    }
+}
+
+@Composable
+private fun OverviewContent(dashboardData: DashboardData) {
     Column(
         modifier = Modifier
-            .padding(start = 16.dp, end = 16.dp)
+            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
             .verticalScroll(rememberScrollState())
             .semantics { contentDescription = "Overview Screen" }
     ) {
+        Text(
+            text = stringResource(R.string.last_7_days),
+            style = MaterialTheme.typography.button,
+            color = MaterialTheme.colors.primary
+        )
         OverviewCard(
             title = stringResource(R.string.balance),
             amountText = dashboardData.totalUnpaidAmount

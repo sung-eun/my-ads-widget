@@ -41,8 +41,16 @@ kotlin {
                 implementation(project(":common:domain"))
             }
         }
-        val androidMain by getting
-        val iosMain by getting
+        val androidMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-cio:$ktorVersion")
+            }
+        }
+        val iosMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-ios:$ktorVersion")
+            }
+        }
     }
 }
 

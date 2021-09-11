@@ -9,8 +9,12 @@ import com.myads.adsense.data.model.response.ResponseReport
 
 class AdsRepository(private val dataSource: AdSenseRemoteDataSource) : IAdsRepository {
     override suspend fun getAdsData(account: AdAccount, dateRange: DateRange): DashboardData {
-        val responseReport = dataSource.getReports(account.id, dateRange)
-        val responsePayment = dataSource.getUnpaidAmount(account.id)
+        return getAdsData(account.id, dateRange)
+    }
+
+    override suspend fun getAdsData(accountName: String, dateRange: DateRange): DashboardData {
+        val responseReport = dataSource.getReports(accountName, dateRange)
+        val responsePayment = dataSource.getUnpaidAmount(accountName)
         return DashboardData(
             impressions = getReportValue(responseReport, "IMPRESSIONS")?.toLongOrNull() ?: 0L,
             clicks = getReportValue(responseReport, "CLICKS")?.toLongOrNull() ?: 0L,
