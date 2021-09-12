@@ -4,12 +4,13 @@
     <string name="title_setting_account">Account</string>
     <string name="connect_account">Connect account</string>
     <string name="unknown">Unknown</string>
+    <string name="message_no_account">Google account is not connected. Please connect your Google account in the Settings tab.</string>
 
     <string name="title_setting_widget">Widget preferences</string>
     <string name="period">Period</string>
     <string name="last_7_days">Last 7days</string>
     <string name="last_30_days">Last 30days</string>
-    
+
     <string name="balance">Balance</string>
     <string name="estimated_earnings">Estimated earnings</string>
     <string name="impressions">Impressions</string>

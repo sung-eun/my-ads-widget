@@ -1,6 +1,5 @@
 package com.essie.myads.ui.home.overview
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.essie.myads.domain.entity.DashboardData
 import com.essie.myads.domain.entity.DateRange
@@ -18,6 +17,9 @@ class OverviewViewModel(
 
     private val _refreshing = MutableStateFlow(false)
     val refreshing: Flow<Boolean> = _refreshing
+
+    private val _loading = MutableLiveData(false)
+    val loading: LiveData<Boolean> = _loading
 
     private val _hasAccount = MutableLiveData(true)
     val hasAccount: LiveData<Boolean> = _hasAccount
@@ -49,6 +51,7 @@ class OverviewViewModel(
 
     @FlowPreview
     fun refresh() {
+        _loading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             flowOf(accountUseCase.refreshToken())
                 .flatMapConcat { flowOf(accountUseCase.getSelectedAccountName()) }
@@ -65,7 +68,8 @@ class OverviewViewModel(
                         )
                     )
                 }
-                .catch { Log.d("TAG", "${it.message}") }
+                .catch { it.printStackTrace() }
+                .onCompletion { _loading.postValue(false) }
                 .collect { _dashboardData.postValue(it) }
         }
     }
