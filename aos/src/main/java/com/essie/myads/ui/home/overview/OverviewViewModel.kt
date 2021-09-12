@@ -1,5 +1,6 @@
 package com.essie.myads.ui.home.overview
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.essie.myads.domain.entity.DashboardData
 import com.essie.myads.domain.entity.DateRange
@@ -18,6 +19,9 @@ class OverviewViewModel(
     private val _refreshing = MutableStateFlow(false)
     val refreshing: Flow<Boolean> = _refreshing
 
+    private val _hasAccount = MutableLiveData(true)
+    val hasAccount: LiveData<Boolean> = _hasAccount
+
     private val _dashboardData = MutableLiveData(DashboardData())
     val dashboardData: LiveData<DashboardData> = _dashboardData
 
@@ -31,20 +35,38 @@ class OverviewViewModel(
     }
 
     @FlowPreview
+    fun fetchInitData(authCode: String?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (authCode.isNullOrEmpty()) {
+                accountUseCase.removeTokenInfo()
+                _hasAccount.postValue(false)
+            } else {
+                flowOf(accountUseCase.fetchAndSaveAuthToken(authCode))
+                    .collect { refresh() }
+            }
+        }
+    }
+
+    @FlowPreview
     fun refresh() {
-        viewModelScope.launch {
-            flowOf(accountUseCase.getSelectedAccountName())
-                .map {
+        viewModelScope.launch(Dispatchers.IO) {
+            flowOf(accountUseCase.refreshToken())
+                .flatMapConcat { flowOf(accountUseCase.getSelectedAccountName()) }
+                .flatMapConcat {
                     if (it.isNullOrEmpty()) {
-                        return@map DashboardData()
+                        _hasAccount.postValue(false)
+                        return@flatMapConcat emptyFlow()
                     }
-                    return@map dashboardDataUseCase.getDashboardData(
-                        it,
-                        DateRange.LAST_7DAYS
+                    _hasAccount.postValue(true)
+                    return@flatMapConcat flowOf(
+                        dashboardDataUseCase.getDashboardData(
+                            it,
+                            DateRange.LAST_7DAYS
+                        )
                     )
                 }
-                .flowOn(Dispatchers.IO)
-                .collect {_dashboardData.postValue(it)}
+                .catch { Log.d("TAG", "${it.message}") }
+                .collect { _dashboardData.postValue(it) }
         }
     }
 }

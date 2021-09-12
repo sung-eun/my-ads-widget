@@ -25,6 +25,7 @@ import com.essie.myads.ui.home.overview.OverviewBody
 import com.essie.myads.ui.home.overview.OverviewViewModel
 import com.essie.myads.ui.home.overview.OverviewViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.myads.adsense.data.LocalDataSourceDelegate
 import com.myads.adsense.data.datasource.remote.AdSenseRemoteDataSource
@@ -87,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         ).get(OverviewViewModel::class.java)
     }
 
+    @FlowPreview
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -99,7 +101,7 @@ class MainActivity : AppCompatActivity() {
             AppMain()
         }
 
-        overviewViewModel.refresh()
+        overviewViewModel.fetchInitData(GoogleSignIn.getLastSignedInAccount(this)?.serverAuthCode)
     }
 
     private fun silentSignIn() {
