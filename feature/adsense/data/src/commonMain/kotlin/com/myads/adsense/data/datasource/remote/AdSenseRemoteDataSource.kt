@@ -33,6 +33,8 @@ class AdSenseRemoteDataSource(
                 ignoreUnknownKeys = true
             })
         }
+
+        expectSuccess = false
     }
 
     suspend fun getAccounts(): ResponseAccountList {

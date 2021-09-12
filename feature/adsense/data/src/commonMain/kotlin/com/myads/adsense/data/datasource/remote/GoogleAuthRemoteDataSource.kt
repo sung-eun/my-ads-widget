@@ -26,6 +26,8 @@ class GoogleAuthRemoteDataSource(private val debuggable: Boolean) {
                 ignoreUnknownKeys = true
             })
         }
+
+        expectSuccess = false
     }
 
     suspend fun getAccessToken(authCode: String): ResponseAccessToken {
