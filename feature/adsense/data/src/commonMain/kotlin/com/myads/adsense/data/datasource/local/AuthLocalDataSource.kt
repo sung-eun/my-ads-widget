@@ -8,6 +8,11 @@ private const val KEY_REFRESH_TOKEN = "KEY_REFRESH_TOKEN"
 
 class AuthLocalDataSource(private val kVault: KVault) : IHttpHeaderProvider {
 
+    fun putTokenInfo(accessToken: String?, refreshToken: String?) {
+        putAccessToken(accessToken)
+        putRefreshToken(refreshToken)
+    }
+
     fun putAccessToken(accessToken: String?) {
         if (accessToken.isNullOrEmpty()) {
             kVault.deleteObject(KEY_ACCESS_TOKEN)

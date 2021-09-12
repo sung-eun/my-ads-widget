@@ -11,8 +11,7 @@ class AuthRepository(
 
     override suspend fun fetchAndSaveAuthToken(authCode: String) {
         val response = remoteDataSource.getAccessToken(authCode)
-        localDataSource.putAccessToken(response.accessToken ?: "")
-        localDataSource.putRefreshToken(response.refreshToken ?: "")
+        localDataSource.putTokenInfo(response.accessToken, response.refreshToken)
     }
 
     override suspend fun refreshToken() {
