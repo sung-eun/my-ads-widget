@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">My Ads</string>
 
-    <string name="title_setting_account">Account</string>
+    <string name="label_account">Account</string>
     <string name="connect_account">Connect account</string>
     <string name="unknown">Unknown</string>
     <string name="message_no_account">Google account is not connected. Please connect your Google account in the Settings tab.</string>

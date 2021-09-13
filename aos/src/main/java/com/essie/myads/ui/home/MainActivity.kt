@@ -24,6 +24,7 @@ import com.essie.myads.domain.usecase.DashboardDataUseCase
 import com.essie.myads.ui.home.overview.OverviewBody
 import com.essie.myads.ui.home.overview.OverviewViewModel
 import com.essie.myads.ui.home.overview.OverviewViewModelFactory
+import com.essie.myads.ui.home.settings.SettingsBody
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
@@ -134,6 +135,8 @@ class MainActivity : AppCompatActivity() {
     @FlowPreview
     @Composable
     fun HomeNavHost(navController: NavHostController, modifier: Modifier = Modifier) {
+        val account: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this)
+
         NavHost(
             navController = navController,
             startDestination = HomeScreen.OVERVIEW.name,
@@ -143,7 +146,13 @@ class MainActivity : AppCompatActivity() {
                 OverviewBody(overviewViewModel)
             }
             composable(HomeScreen.SETTINGS.name) {
-
+                SettingsBody(
+                    account,
+                    { googleSignIn() },
+                    {
+                        GoogleSignInClientUtils.getGoogleSignInClient(this@MainActivity)
+                            .revokeAccess()
+                    })
             }
         }
     }
@@ -170,6 +179,7 @@ class MainActivity : AppCompatActivity() {
         try {
             val account = task.getResult(ApiException::class.java)
         } catch (e: ApiException) {
+
         }
     }
 }

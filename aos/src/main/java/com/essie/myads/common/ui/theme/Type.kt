@@ -13,7 +13,7 @@ private val NotoSerifFontFamily = FontFamily(
     Font(R.font.notoserifkr_regular),
     Font(R.font.notoserifkr_semibold, FontWeight.SemiBold)
 )
-private val NotoSansFontFamily = FontFamily(
+val NotoSansFontFamily = FontFamily(
     Font(R.font.notosanskr_regular),
     Font(R.font.notosanskr_light, FontWeight.Light),
     Font(R.font.notosanskr_bold, FontWeight.Bold)
@@ -63,7 +63,6 @@ val Typography = Typography(
     body1 = TextStyle(
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
-        letterSpacing = 0.1.em
     ),
     body2 = TextStyle(
         fontWeight = FontWeight.Normal,
