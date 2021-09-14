@@ -3,10 +3,9 @@ package com.essie.myads.ui.home.settings
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,28 +25,38 @@ import coil.transform.CircleCropTransformation
 import com.essie.myads.R
 import com.essie.myads.common.ui.theme.AppTheme
 import com.essie.myads.common.ui.theme.NotoSansFontFamily
+import com.essie.myads.domain.entity.AdAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
 @ExperimentalCoilApi
 @Composable
 fun SettingsBody(
-//    settingsViewModel: SettingsViewModel,
-    googleAccount: GoogleSignInAccount?,
+    settingsViewModel: SettingsViewModel,
     onConnectClick: () -> Unit,
     onDisconnectClicked: () -> Unit
 ) {
+    val googleAccount by settingsViewModel.googleAccount.observeAsState()
+    val selectedAdAccountName by settingsViewModel.selectedAdAccountName.observeAsState("")
+    val adAccounts by settingsViewModel.adAccounts.observeAsState(emptyList())
+
     Column(modifier = Modifier
         .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
         .verticalScroll(rememberScrollState())
         .semantics { contentDescription = "Settings Screen" }) {
 
-        SettingsContent(onConnectClick, googleAccount, onDisconnectClicked)
+        AccountSettingsContent(onConnectClick, googleAccount, onDisconnectClicked)
+        if (googleAccount != null) {
+            AdAccountSettingContent(
+                selectedAdAccountName,
+                adAccounts
+            ) { settingsViewModel.selectAdAccount(it) }
+        }
     }
 }
 
 @ExperimentalCoilApi
 @Composable
-private fun SettingsContent(
+private fun AccountSettingsContent(
     onConnectClick: () -> Unit,
     googleAccount: GoogleSignInAccount?,
     onDisconnectClicked: () -> Unit
@@ -152,15 +161,54 @@ private fun UserProfileRow(account: GoogleSignInAccount, onDisconnectClicked: ()
     }
 }
 
+@Composable
+private fun AdAccountSettingContent(
+    selectedAccountName: String,
+    adAccounts: List<AdAccount>,
+    onSelectItem: (AdAccount) -> Unit
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(dimensionResource(id = R.dimen.list_button_height)),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = selectedAccountName,
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(onClick = { expanded = true }),
+            maxLines = 1,
+            color = MaterialTheme.colors.onBackground,
+            fontSize = 16.sp,
+            fontFamily = NotoSansFontFamily
+        )
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(colorResource(id = R.color.green_200))
+        ) {
+            adAccounts.forEachIndexed { _, item ->
+                DropdownMenuItem(onClick = {
+                    onSelectItem(item)
+                    expanded = false
+
+                }) {
+                    Text(text = item.displayName)
+                }
+            }
+        }
+    }
+}
+
 @Preview
 @Composable
 fun PreviewSettings() {
     AppTheme {
-        Column(modifier = Modifier
-            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
-            .verticalScroll(rememberScrollState())
-            .semantics { contentDescription = "Settings Screen" }) {
-//            SettingsContent()
-        }
+        AdAccountSettingContent("test", emptyList()) {}
     }
 }

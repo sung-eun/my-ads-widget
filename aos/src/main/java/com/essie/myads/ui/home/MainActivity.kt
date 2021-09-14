@@ -25,8 +25,9 @@ import com.essie.myads.ui.home.overview.OverviewBody
 import com.essie.myads.ui.home.overview.OverviewViewModel
 import com.essie.myads.ui.home.overview.OverviewViewModelFactory
 import com.essie.myads.ui.home.settings.SettingsBody
+import com.essie.myads.ui.home.settings.SettingsViewModel
+import com.essie.myads.ui.home.settings.SettingsViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.myads.adsense.data.LocalDataSourceDelegate
 import com.myads.adsense.data.datasource.remote.AdSenseRemoteDataSource
@@ -89,20 +90,43 @@ class MainActivity : AppCompatActivity() {
         ).get(OverviewViewModel::class.java)
     }
 
+    private val settingsViewModel by lazy {
+        ViewModelProvider(
+            this,
+            SettingsViewModelFactory(
+                AccountUseCase(
+                    AuthRepository(
+                        authLocalDataSource,
+                        GoogleAuthRemoteDataSource(BuildConfig.DEBUG)
+                    ),
+                    AccountRepository(
+                        AdSenseRemoteDataSource(
+                            authLocalDataSource,
+                            BuildConfig.DEBUG
+                        ),
+                        LocalDataSourceDelegate.getAdSenseLocalDataSource(this)
+                    )
+                )
+            )
+        ).get(SettingsViewModel::class.java)
+    }
+
     @FlowPreview
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        silentSignIn()
-
         binding.composeView.setContent {
             AppMain()
         }
 
-        overviewViewModel.fetchInitData(GoogleSignIn.getLastSignedInAccount(this)?.serverAuthCode)
+        silentSignIn()
+
+        val googleAccount = GoogleSignIn.getLastSignedInAccount(this)
+        overviewViewModel.fetchInitData(googleAccount?.serverAuthCode)
+        settingsViewModel.updateGoogleAccount(googleAccount)
+        settingsViewModel.fetchAdAccounts()
     }
 
     private fun silentSignIn() {
@@ -135,8 +159,6 @@ class MainActivity : AppCompatActivity() {
     @FlowPreview
     @Composable
     fun HomeNavHost(navController: NavHostController, modifier: Modifier = Modifier) {
-        val account: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this)
-
         NavHost(
             navController = navController,
             startDestination = HomeScreen.OVERVIEW.name,
@@ -147,11 +169,12 @@ class MainActivity : AppCompatActivity() {
             }
             composable(HomeScreen.SETTINGS.name) {
                 SettingsBody(
-                    account,
+                    settingsViewModel,
                     { googleSignIn() },
                     {
                         GoogleSignInClientUtils.getGoogleSignInClient(this@MainActivity)
                             .revokeAccess()
+                        settingsViewModel.updateGoogleAccount(null)
                     })
             }
         }
@@ -178,6 +201,7 @@ class MainActivity : AppCompatActivity() {
         val task = GoogleSignIn.getSignedInAccountFromIntent(data)
         try {
             val account = task.getResult(ApiException::class.java)
+            settingsViewModel.updateGoogleAccount(account)
         } catch (e: ApiException) {
 
         }
