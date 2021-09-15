@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.essie.myads.R
 import com.essie.myads.common.ui.theme.AppTheme
 import com.essie.myads.domain.entity.DashboardData
+import com.essie.myads.ui.home.MainViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import kotlinx.coroutines.FlowPreview
@@ -31,15 +32,15 @@ private val DefaultPadding = 12.dp
 
 @FlowPreview
 @Composable
-fun OverviewBody(overviewViewModel: OverviewViewModel) {
-    val refreshing by overviewViewModel.refreshing.collectAsState(false)
-    val loading by overviewViewModel.loading.observeAsState(initial = false)
-    val dashboardData by overviewViewModel.dashboardData.observeAsState()
-    val hasAccount by overviewViewModel.hasAccount.observeAsState()
+fun OverviewBody(mainViewModel: MainViewModel) {
+    val refreshing by mainViewModel.refreshing.collectAsState(false)
+    val loading by mainViewModel.loading.observeAsState(initial = false)
+    val dashboardData by mainViewModel.dashboardData.observeAsState()
+    val hasAccount by mainViewModel.hasAccount.observeAsState()
 
     SwipeRefresh(
         state = rememberSwipeRefreshState(refreshing),
-        onRefresh = { overviewViewModel.pullToRefresh() }) {
+        onRefresh = { mainViewModel.pullToRefresh() }) {
         Column(Modifier.fillMaxWidth()) {
             if (loading) {
                 LinearProgressIndicator(modifier = Modifier.fillMaxWidth())

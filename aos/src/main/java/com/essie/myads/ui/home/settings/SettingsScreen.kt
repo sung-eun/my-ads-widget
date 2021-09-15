@@ -4,6 +4,8 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -26,18 +28,19 @@ import com.essie.myads.R
 import com.essie.myads.common.ui.theme.AppTheme
 import com.essie.myads.common.ui.theme.NotoSansFontFamily
 import com.essie.myads.domain.entity.AdAccount
+import com.essie.myads.ui.home.MainViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
 @ExperimentalCoilApi
 @Composable
 fun SettingsBody(
-    settingsViewModel: SettingsViewModel,
+    mainViewModel: MainViewModel,
     onConnectClick: () -> Unit,
     onDisconnectClicked: () -> Unit
 ) {
-    val googleAccount by settingsViewModel.googleAccount.observeAsState()
-    val selectedAdAccountName by settingsViewModel.selectedAdAccountName.observeAsState("")
-    val adAccounts by settingsViewModel.adAccounts.observeAsState(emptyList())
+    val googleAccount by mainViewModel.googleAccount.observeAsState()
+    val selectedAdAccountName by mainViewModel.selectedAdAccountName.observeAsState("")
+    val adAccounts by mainViewModel.adAccounts.observeAsState(emptyList())
 
     Column(modifier = Modifier
         .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
@@ -49,7 +52,7 @@ fun SettingsBody(
             AdAccountSettingContent(
                 selectedAdAccountName,
                 adAccounts
-            ) { settingsViewModel.selectAdAccount(it) }
+            ) { mainViewModel.selectAdAccount(it) }
         }
     }
 }
@@ -168,29 +171,41 @@ private fun AdAccountSettingContent(
     onSelectItem: (AdAccount) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(dimensionResource(id = R.dimen.list_button_height)),
-        verticalAlignment = Alignment.CenterVertically,
+            .height(dimensionResource(id = R.dimen.list_button_height))
+            .clickable(onClick = { expanded = true }),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = selectedAccountName,
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable(onClick = { expanded = true }),
             maxLines = 1,
             color = MaterialTheme.colors.onBackground,
             fontSize = 16.sp,
             fontFamily = NotoSansFontFamily
         )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
+            Icon(
+                imageVector = Icons.Filled.ArrowDropDown,
+                contentDescription = "DropDown icon"
+            )
+        }
+    }
+    Box(
+        Modifier
+            .fillMaxSize()
+            .wrapContentSize(Alignment.TopStart)
+    ) {
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
             modifier = Modifier
                 .fillMaxWidth()
-                .background(colorResource(id = R.color.green_200))
+                .background(colorResource(id = R.color.grey_500))
         ) {
             adAccounts.forEachIndexed { _, item ->
                 DropdownMenuItem(onClick = {
@@ -198,7 +213,7 @@ private fun AdAccountSettingContent(
                     expanded = false
 
                 }) {
-                    Text(text = item.displayName)
+                    Text(text = item.id, color = colorResource(R.color.black))
                 }
             }
         }
@@ -208,7 +223,30 @@ private fun AdAccountSettingContent(
 @Preview
 @Composable
 fun PreviewSettings() {
+    var expanded = true
     AppTheme {
-        AdAccountSettingContent("test", emptyList()) {}
+        Box(
+            Modifier
+                .fillMaxSize()
+                .wrapContentSize(Alignment.TopStart)
+        ) {
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(colorResource(id = R.color.green_200))
+            ) {
+                DropdownMenuItem(onClick = {
+                    expanded = false
+
+                }) {
+                    Text(
+                        text = "item.displayName",
+                        color = MaterialTheme.colors.onBackground
+                    )
+                }
+            }
+        }
     }
 }

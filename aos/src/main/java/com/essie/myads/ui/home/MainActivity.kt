@@ -9,6 +9,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,11 +23,7 @@ import com.essie.myads.databinding.ActivityMainBinding
 import com.essie.myads.domain.usecase.AccountUseCase
 import com.essie.myads.domain.usecase.DashboardDataUseCase
 import com.essie.myads.ui.home.overview.OverviewBody
-import com.essie.myads.ui.home.overview.OverviewViewModel
-import com.essie.myads.ui.home.overview.OverviewViewModelFactory
 import com.essie.myads.ui.home.settings.SettingsBody
-import com.essie.myads.ui.home.settings.SettingsViewModel
-import com.essie.myads.ui.home.settings.SettingsViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.myads.adsense.data.LocalDataSourceDelegate
@@ -36,6 +33,7 @@ import com.myads.adsense.data.repository.AccountRepository
 import com.myads.adsense.data.repository.AdsRepository
 import com.myads.adsense.data.repository.AuthRepository
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.launch
 
 private const val REQUEST_GOOGLE_SIGN_IN = 111
 
@@ -45,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     //TODO DI
     private val authLocalDataSource by lazy { LocalDataSourceDelegate.getAuthLocalDataSource(this) }
-    private val authUseCase by lazy {
+    private val accountUseCase by lazy {
         AccountUseCase(
             AuthRepository(
                 authLocalDataSource,
@@ -61,23 +59,11 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private val overviewViewModel by lazy {
+    private val mainViewModel by lazy {
         ViewModelProvider(
             this,
-            OverviewViewModelFactory(
-                AccountUseCase(
-                    AuthRepository(
-                        authLocalDataSource,
-                        GoogleAuthRemoteDataSource(BuildConfig.DEBUG)
-                    ),
-                    AccountRepository(
-                        AdSenseRemoteDataSource(
-                            authLocalDataSource,
-                            BuildConfig.DEBUG
-                        ),
-                        LocalDataSourceDelegate.getAdSenseLocalDataSource(this)
-                    )
-                ),
+            MainViewModelFactory(
+                accountUseCase,
                 DashboardDataUseCase(
                     AdsRepository(
                         AdSenseRemoteDataSource(
@@ -87,31 +73,9 @@ class MainActivity : AppCompatActivity() {
                     )
                 )
             )
-        ).get(OverviewViewModel::class.java)
+        ).get(MainViewModel::class.java)
     }
 
-    private val settingsViewModel by lazy {
-        ViewModelProvider(
-            this,
-            SettingsViewModelFactory(
-                AccountUseCase(
-                    AuthRepository(
-                        authLocalDataSource,
-                        GoogleAuthRemoteDataSource(BuildConfig.DEBUG)
-                    ),
-                    AccountRepository(
-                        AdSenseRemoteDataSource(
-                            authLocalDataSource,
-                            BuildConfig.DEBUG
-                        ),
-                        LocalDataSourceDelegate.getAdSenseLocalDataSource(this)
-                    )
-                )
-            )
-        ).get(SettingsViewModel::class.java)
-    }
-
-    @FlowPreview
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -120,13 +84,23 @@ class MainActivity : AppCompatActivity() {
         binding.composeView.setContent {
             AppMain()
         }
+    }
+
+    @FlowPreview
+    override fun onStart() {
+        super.onStart()
+
+        mainViewModel.refreshToken()
 
         silentSignIn()
 
         val googleAccount = GoogleSignIn.getLastSignedInAccount(this)
-        overviewViewModel.fetchInitData(googleAccount?.serverAuthCode)
-        settingsViewModel.updateGoogleAccount(googleAccount)
-        settingsViewModel.fetchAdAccounts()
+        lifecycleScope.launch {
+            mainViewModel.updateGoogleAccount(googleAccount)
+            mainViewModel.fetchInitData(googleAccount?.serverAuthCode)
+        }
+
+
     }
 
     private fun silentSignIn() {
@@ -165,16 +139,17 @@ class MainActivity : AppCompatActivity() {
             modifier = modifier
         ) {
             composable(HomeScreen.OVERVIEW.name) {
-                OverviewBody(overviewViewModel)
+                OverviewBody(mainViewModel)
             }
             composable(HomeScreen.SETTINGS.name) {
                 SettingsBody(
-                    settingsViewModel,
+                    mainViewModel,
                     { googleSignIn() },
                     {
                         GoogleSignInClientUtils.getGoogleSignInClient(this@MainActivity)
                             .revokeAccess()
-                        settingsViewModel.updateGoogleAccount(null)
+                        mainViewModel.updateGoogleAccount(null)
+                        mainViewModel.refresh()
                     })
             }
         }
@@ -197,11 +172,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @FlowPreview
     private fun handleGoogleSignInResult(data: Intent?) {
         val task = GoogleSignIn.getSignedInAccountFromIntent(data)
         try {
             val account = task.getResult(ApiException::class.java)
-            settingsViewModel.updateGoogleAccount(account)
+            mainViewModel.updateGoogleAccount(account)
+            lifecycleScope.launch {
+                mainViewModel.fetchInitData(account.serverAuthCode)
+            }
         } catch (e: ApiException) {
 
         }
