@@ -25,6 +25,7 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
 import com.essie.myads.R
+import com.essie.myads.common.ui.component.CommonAlertDialog
 import com.essie.myads.common.ui.theme.AppTheme
 import com.essie.myads.common.ui.theme.NotoSansFontFamily
 import com.essie.myads.domain.entity.AdAccount
@@ -66,7 +67,7 @@ private fun AccountSettingsContent(
 ) {
     Text(
         text = stringResource(id = R.string.label_account),
-        style = MaterialTheme.typography.caption,
+        style = MaterialTheme.typography.button,
         color = MaterialTheme.colors.primary
     )
     if (googleAccount == null) {
@@ -148,16 +149,30 @@ private fun UserProfileRow(account: GoogleSignInAccount, onDisconnectClicked: ()
         )
         Spacer(Modifier.width(20.dp))
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(0.dp),
             horizontalArrangement = Arrangement.End
         ) {
+            val openDialog = remember { mutableStateOf(false) }
+
             IconButton(
-                onClick = { onDisconnectClicked() }) {
+                onClick = { openDialog.value = true }) {
                 Image(
                     modifier = Modifier
                         .size(30.dp),
                     contentScale = ContentScale.Inside,
                     painter = painterResource(id = R.drawable.ic_cancel), contentDescription = null
+                )
+            }
+
+            if (openDialog.value) {
+                CommonAlertDialog(
+                    bodyText = stringResource(R.string.message_confirm_disconnect_account),
+                    positiveButtonText = stringResource(R.string.label_ok),
+                    negativeButtonText = stringResource(R.string.label_cancel),
+                    onConfirm = onDisconnectClicked,
+                    onDismiss = { openDialog.value = false }
                 )
             }
         }

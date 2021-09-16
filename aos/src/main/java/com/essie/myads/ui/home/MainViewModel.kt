@@ -93,6 +93,8 @@ class MainViewModel(
 
     fun updateGoogleAccount(account: GoogleSignInAccount?) {
         _googleAccount.value = account
+        _dashboardData.value = DashboardData()
+        _hasAccount.value = false
         viewModelScope.launch(Dispatchers.IO) {
             if (account == null) {
                 accountUseCase.removeTokenInfo()
@@ -100,7 +102,7 @@ class MainViewModel(
         }
     }
 
-    fun fetchAdAccounts() {
+    private fun fetchAdAccounts() {
         viewModelScope.launch(Dispatchers.IO) {
             flowOf(accountUseCase.getSelectedAccountId())
                 .zip(flowOf(accountUseCase.getAccounts())) { selectedAccountName, accounts ->

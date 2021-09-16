@@ -25,7 +25,7 @@ class AccountRepository(
         localDataSource.putAccountName(account.id)
     }
 
-    override suspend fun getSelectAccountName(): String {
+    override suspend fun getSelectAccountId(): String {
         return localDataSource.getAccountName()
     }
 }

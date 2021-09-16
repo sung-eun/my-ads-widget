@@ -1,6 +1,7 @@
 package com.essie.myads.domain.usecase
 
 import com.essie.myads.domain.entity.AdAccount
+import com.essie.myads.domain.entity.AdSupplier
 import com.essie.myads.domain.repository.IAccountRepository
 import com.essie.myads.domain.repository.IAuthRepository
 
@@ -18,6 +19,7 @@ class AccountUseCase(
 
     suspend fun removeTokenInfo() {
         authRepository.removeAuthToken()
+        accountRepository.selectAccount(AdAccount("", "", AdSupplier.ADSENSE))
     }
 
     suspend fun getAccounts(): List<AdAccount> {
@@ -29,13 +31,13 @@ class AccountUseCase(
     }
 
     suspend fun getSelectedAccountId(): String {
-        val cachedAccountName = accountRepository.getSelectAccountName()
-        if (cachedAccountName.isEmpty()) {
+        val cachedAccountId = accountRepository.getSelectAccountId()
+        if (cachedAccountId.isEmpty()) {
             getAccounts().firstOrNull()?.let {
                 selectAccount(it)
                 return it.id
             }
         }
-        return cachedAccountName
+        return cachedAccountId
     }
 }

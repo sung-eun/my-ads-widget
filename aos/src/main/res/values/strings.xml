@@ -5,6 +5,9 @@
     <string name="connect_account">Connect account</string>
     <string name="unknown">Unknown</string>
     <string name="message_no_account">Google account is not connected. Please connect your Google account in the Settings tab.</string>
+    <string name="message_confirm_disconnect_account">Are you sure you want to disconnect your account?</string>
+    <string name="label_cancel">Cancel</string>
+    <string name="label_ok">OK</string>
 
     <string name="title_setting_widget">Widget preferences</string>
     <string name="period">Period</string>
