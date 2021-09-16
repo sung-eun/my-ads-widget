@@ -14,7 +14,8 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val accountUseCase: AccountUseCase,
-    private val dashboardDataUseCase: DashboardDataUseCase
+    private val dashboardDataUseCase: DashboardDataUseCase,
+    private val googleAccountManager: IGoogleAccountManager
 ) : ViewModel() {
 
     private val _refreshing = MutableStateFlow(false)
@@ -23,8 +24,8 @@ class MainViewModel(
     private val _loading = MutableLiveData(false)
     val loading: LiveData<Boolean> = _loading
 
-    private val _hasAccount = MutableLiveData(true)
-    val hasAccount: LiveData<Boolean> = _hasAccount
+    private val _error: MutableLiveData<HomeErrorType?> = MutableLiveData(null)
+    val error: LiveData<HomeErrorType?> = _error
 
     private val _dashboardData = MutableLiveData(DashboardData())
     val dashboardData: LiveData<DashboardData> = _dashboardData
@@ -49,15 +50,18 @@ class MainViewModel(
 
     @FlowPreview
     suspend fun fetchInitData(authCode: String?) {
+        if (_googleAccount.value == null) {
+            _error.postValue(HomeErrorType.ACCOUNT_NOT_CONNECTED)
+        } else if (googleAccountManager.hasAdSensePermission().not()) {
+            _error.postValue(HomeErrorType.ADSENSE_NOT_PERMITTED)
+        }
+
+        if (authCode.isNullOrEmpty()) return
+
         viewModelScope.launch(Dispatchers.IO) {
-            if (authCode.isNullOrEmpty()) {
-                accountUseCase.removeTokenInfo()
-                _hasAccount.postValue(false)
-            } else {
-                accountUseCase.fetchAndSaveAuthToken(authCode)
-                refresh()
-                fetchAdAccounts()
-            }
+            accountUseCase.fetchAndSaveAuthToken(authCode)
+            refresh()
+            fetchAdAccounts()
         }
     }
 
@@ -74,10 +78,14 @@ class MainViewModel(
             flowOf(accountUseCase.getSelectedAccountId())
                 .flatMapConcat {
                     if (it.isEmpty()) {
-                        _hasAccount.postValue(false)
+                        if (_googleAccount.value == null) {
+                            _error.postValue(HomeErrorType.ACCOUNT_NOT_CONNECTED)
+                        } else if (googleAccountManager.hasAdSensePermission().not()) {
+                            _error.postValue(HomeErrorType.ADSENSE_NOT_PERMITTED)
+                        }
                         return@flatMapConcat emptyFlow()
                     }
-                    _hasAccount.postValue(true)
+                    _error.postValue(null)
                     return@flatMapConcat flowOf(
                         dashboardDataUseCase.getDashboardData(
                             it,
@@ -85,7 +93,6 @@ class MainViewModel(
                         )
                     )
                 }
-                .catch { it.printStackTrace() }
                 .onCompletion { _loading.postValue(false) }
                 .collect { _dashboardData.postValue(it) }
         }
@@ -93,8 +100,11 @@ class MainViewModel(
 
     fun updateGoogleAccount(account: GoogleSignInAccount?) {
         _googleAccount.value = account
-        _dashboardData.value = DashboardData()
-        _hasAccount.value = false
+        if (account == null) {
+            _dashboardData.value = DashboardData()
+            _error.value = HomeErrorType.ACCOUNT_NOT_CONNECTED
+        }
+
         viewModelScope.launch(Dispatchers.IO) {
             if (account == null) {
                 accountUseCase.removeTokenInfo()
@@ -129,11 +139,12 @@ class MainViewModel(
 
 class MainViewModelFactory(
     private val accountUseCase: AccountUseCase,
-    private val dashboardDataUseCase: DashboardDataUseCase
+    private val dashboardDataUseCase: DashboardDataUseCase,
+    private val googleAccountManager: IGoogleAccountManager
 ) :
     ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MainViewModel(accountUseCase, dashboardDataUseCase) as T
+        return MainViewModel(accountUseCase, dashboardDataUseCase, googleAccountManager) as T
     }
 }

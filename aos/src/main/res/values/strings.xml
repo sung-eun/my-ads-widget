@@ -4,7 +4,9 @@
     <string name="label_account">Account</string>
     <string name="connect_account">Connect account</string>
     <string name="unknown">Unknown</string>
-    <string name="message_no_account">Google account is not connected. Please connect your Google account in the Settings tab.</string>
+    <string name="error_no_account">Google account is not connected. Please connect your Google account in the Settings tab.</string>
+    <string name="error_no_permission_read_adsense">AdSense read permission on your Google Account is not allowed. Please click here to grant read permission.</string>
+
     <string name="message_confirm_disconnect_account">Are you sure you want to disconnect your account?</string>
     <string name="label_cancel">Cancel</string>
     <string name="label_ok">OK</string>

@@ -47,7 +47,7 @@ import kotlinx.coroutines.launch
 private const val REQUEST_GOOGLE_SIGN_IN = 111
 
 @FlowPreview
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IGoogleAccountManager {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -81,7 +81,8 @@ class MainActivity : AppCompatActivity() {
                             BuildConfig.DEBUG
                         )
                     )
-                )
+                ),
+                this
             )
         ).get(MainViewModel::class.java)
     }
@@ -165,7 +166,11 @@ class MainActivity : AppCompatActivity() {
             modifier = modifier
         ) {
             composable(HomeScreen.OVERVIEW.name) {
-                OverviewBody(mainViewModel)
+                OverviewBody(mainViewModel) {
+                    GoogleSignInClientUtils.requestReadAdSensePermission(
+                        this@MainActivity
+                    )
+                }
             }
             composable(HomeScreen.SETTINGS.name) {
                 SettingsBody(
@@ -194,6 +199,10 @@ class MainActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_GOOGLE_SIGN_IN) {
                 handleGoogleSignInResult(data)
+            } else if (requestCode == GoogleSignInClientUtils.REQUEST_CODE_PERMISSION) {
+                lifecycleScope.launch {
+                    mainViewModel.fetchInitData(GoogleSignIn.getLastSignedInAccount(this@MainActivity)?.serverAuthCode)
+                }
             }
         }
     }
@@ -210,5 +219,8 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
+    override fun hasAdSensePermission(): Boolean =
+        GoogleSignInClientUtils.hasReadAdSensePermission(this)
 }
 

@@ -1,6 +1,7 @@
 package com.essie.myads.ui.home.overview
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.essie.myads.R
 import com.essie.myads.common.ui.theme.AppTheme
 import com.essie.myads.domain.entity.DashboardData
+import com.essie.myads.ui.home.HomeErrorType
 import com.essie.myads.ui.home.MainViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -32,11 +34,11 @@ private val DefaultPadding = 12.dp
 
 @FlowPreview
 @Composable
-fun OverviewBody(mainViewModel: MainViewModel) {
+fun OverviewBody(mainViewModel: MainViewModel, requestAdScopePermission: () -> Unit) {
     val refreshing by mainViewModel.refreshing.collectAsState(false)
     val loading by mainViewModel.loading.observeAsState(initial = false)
     val dashboardData by mainViewModel.dashboardData.observeAsState()
-    val hasAccount by mainViewModel.hasAccount.observeAsState()
+    val error by mainViewModel.error.observeAsState()
 
     SwipeRefresh(
         state = rememberSwipeRefreshState(refreshing),
@@ -45,23 +47,47 @@ fun OverviewBody(mainViewModel: MainViewModel) {
             if (loading) {
                 LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
             }
-            if (hasAccount != true) {
-                Row(
-                    modifier = Modifier
-                        .background(colorResource(R.color.yellow))
-                        .fillMaxWidth()
-                ) {
-                    Text(
-                        modifier = Modifier.padding(start = 12.dp),
-                        text = stringResource(R.string.message_no_account),
-                        style = MaterialTheme.typography.body2.copy(
-                            fontWeight = FontWeight.Light
-                        ),
-                        color = MaterialTheme.colors.surface,
-                    )
-                }
-            }
+            ErrorView(error, requestAdScopePermission)
             OverviewContent(dashboardData ?: DashboardData())
+        }
+    }
+}
+
+@Composable
+private fun ErrorView(
+    error: HomeErrorType?,
+    requestAdScopePermission: () -> Unit
+) {
+    if (error === HomeErrorType.ACCOUNT_NOT_CONNECTED) {
+        Row(
+            modifier = Modifier
+                .background(colorResource(R.color.yellow))
+                .fillMaxWidth()
+        ) {
+            Text(
+                modifier = Modifier.padding(start = 12.dp),
+                text = stringResource(R.string.error_no_account),
+                style = MaterialTheme.typography.body2.copy(
+                    fontWeight = FontWeight.Light
+                ),
+                color = MaterialTheme.colors.surface,
+            )
+        }
+    } else if (error === HomeErrorType.ADSENSE_NOT_PERMITTED) {
+        Row(
+            modifier = Modifier
+                .background(colorResource(R.color.yellow))
+                .fillMaxWidth()
+                .clickable(onClick = { requestAdScopePermission() })
+        ) {
+            Text(
+                modifier = Modifier.padding(start = 12.dp),
+                text = stringResource(R.string.error_no_permission_read_adsense),
+                style = MaterialTheme.typography.body2.copy(
+                    fontWeight = FontWeight.Light
+                ),
+                color = MaterialTheme.colors.surface,
+            )
         }
     }
 }
