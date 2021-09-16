@@ -15,6 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import coil.annotation.ExperimentalCoilApi
 import com.essie.myads.BuildConfig
 import com.essie.myads.common.GoogleSignInClientUtils
 import com.essie.myads.common.ui.component.CustomTabRow
@@ -37,6 +38,7 @@ import kotlinx.coroutines.launch
 
 private const val REQUEST_GOOGLE_SIGN_IN = 111
 
+@FlowPreview
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -93,21 +95,20 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.refreshToken()
 
         silentSignIn()
-
-        val googleAccount = GoogleSignIn.getLastSignedInAccount(this)
-        lifecycleScope.launch {
-            mainViewModel.updateGoogleAccount(googleAccount)
-            mainViewModel.fetchInitData(googleAccount?.serverAuthCode)
-        }
-
-
     }
 
     private fun silentSignIn() {
-        GoogleSignInClientUtils.getGoogleSignInClient(this).silentSignIn()
+        GoogleSignInClientUtils.getGoogleSignInClient(this).silentSignIn().addOnCompleteListener {
+            mainViewModel.refreshToken()
+
+            val googleAccount = GoogleSignIn.getLastSignedInAccount(this)
+            lifecycleScope.launch {
+                mainViewModel.updateGoogleAccount(googleAccount)
+                mainViewModel.fetchInitData(googleAccount?.serverAuthCode)
+            }
+        }
     }
 
-    @FlowPreview
     @Composable
     fun AppMain() {
         AppTheme {
@@ -130,7 +131,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @FlowPreview
+    @ExperimentalCoilApi
     @Composable
     fun HomeNavHost(navController: NavHostController, modifier: Modifier = Modifier) {
         NavHost(
@@ -172,7 +173,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @FlowPreview
     private fun handleGoogleSignInResult(data: Intent?) {
         val task = GoogleSignIn.getSignedInAccountFromIntent(data)
         try {
