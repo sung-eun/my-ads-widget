@@ -2,7 +2,10 @@ package com.essie.myads.ui.home
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
+import android.view.Gravity
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
@@ -17,6 +20,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
 import com.essie.myads.BuildConfig
+import com.essie.myads.R
 import com.essie.myads.common.GoogleSignInClientUtils
 import com.essie.myads.common.ui.component.CustomTabRow
 import com.essie.myads.common.ui.theme.AppTheme
@@ -25,6 +29,10 @@ import com.essie.myads.domain.usecase.AccountUseCase
 import com.essie.myads.domain.usecase.DashboardDataUseCase
 import com.essie.myads.ui.home.overview.OverviewBody
 import com.essie.myads.ui.home.settings.SettingsBody
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.myads.adsense.data.LocalDataSourceDelegate
@@ -78,6 +86,15 @@ class MainActivity : AppCompatActivity() {
         ).get(MainViewModel::class.java)
     }
 
+    private val adSize: AdSize
+        get() {
+            val displayMetrics = Resources.getSystem().displayMetrics
+            val density = displayMetrics.density
+            val displayWidthPixels = displayMetrics.widthPixels.toFloat()
+            val adWidth = (displayWidthPixels / density).toInt()
+            return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth)
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -86,14 +103,22 @@ class MainActivity : AppCompatActivity() {
         binding.composeView.setContent {
             AppMain()
         }
+        initAds()
     }
 
-    @FlowPreview
+    private fun initAds() {
+        MobileAds.initialize(this)
+        val adView = AdView(this)
+        (adView.layoutParams as? FrameLayout.LayoutParams)?.gravity = Gravity.CENTER
+        binding.adContainer.addView(adView)
+
+        adView.adSize = adSize
+        adView.adUnitId = getString(R.string.admob_banner_unit)
+        adView.loadAd(AdRequest.Builder().build())
+    }
+
     override fun onStart() {
         super.onStart()
-
-        mainViewModel.refreshToken()
-
         silentSignIn()
     }
 
