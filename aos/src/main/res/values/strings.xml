@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">My Ads</string>
+    <string name="app_name" translatable="false">My Ads</string>
+
+    <string name="message_back_press_finish_app">Press \'Back\' once more to close the app.</string>
 
     <string name="label_account">Account</string>
-    <string name="connect_account">Connect account</string>
+    <string name="connect_account">Connect Google account</string>
     <string name="unknown">Unknown</string>
     <string name="error_no_account">Google account is not connected. Please connect your Google account in the Settings tab.</string>
     <string name="error_no_permission_read_adsense">AdSense read permission on your Google Account is not allowed. Please click here to grant read permission.</string>

@@ -6,6 +6,7 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
@@ -50,6 +51,8 @@ private const val REQUEST_GOOGLE_SIGN_IN = 111
 class MainActivity : AppCompatActivity(), IGoogleAccountManager {
 
     private lateinit var binding: ActivityMainBinding
+
+    private var firstBackPressedTimestamp: Long = -1
 
     //TODO DI
     private val authLocalDataSource by lazy { LocalDataSourceDelegate.getAuthLocalDataSource(this) }
@@ -216,11 +219,22 @@ class MainActivity : AppCompatActivity(), IGoogleAccountManager {
                 mainViewModel.fetchInitData(account.serverAuthCode)
             }
         } catch (e: ApiException) {
-
+            e.printStackTrace()
         }
     }
 
     override fun hasAdSensePermission(): Boolean =
         GoogleSignInClientUtils.hasReadAdSensePermission(this)
+
+    override fun onBackPressed() {
+        val currentTimestamp = System.currentTimeMillis()
+        if (firstBackPressedTimestamp < 0 || currentTimestamp - firstBackPressedTimestamp > 2000) {
+            firstBackPressedTimestamp = currentTimestamp
+            Toast.makeText(this, R.string.message_back_press_finish_app, Toast.LENGTH_SHORT).show()
+        } else {
+            finish()
+        }
+    }
+
 }
 
