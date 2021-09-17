@@ -1,3 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="message_back_press_finish_app">\'뒤로 가기\'를 한 번 더 누르면 앱이 종료됩니다.</string>
+
+    <string name="label_account">계정</string>
+    <string name="connect_account">Google 계정 연결하기</string>
+    <string name="unknown">Unknown</string>
+    <string name="error_no_account">Google 계정이 연결되지 않았습니다. 설정 탭에서 Google 계정을 연결해주세요.</string>
+    <string name="error_no_permission_read_adsense">연결된 Google 계정의 AdSense 읽기 권한이 허용되지 않았습니다. 여기를 클릭하여 AdSense 읽기 권한을 허용해주세요.</string>
+
+    <string name="message_confirm_disconnect_account">계정 연결을 해제하시겠습니까?</string>
+    <string name="label_cancel">취소</string>
+    <string name="label_ok">확인</string>
+
+    <string name="title_setting_widget">Widget preferences</string>
+    <string name="period">Period</string>
+    <string name="last_7_days">최근 7일</string>
+    <string name="last_30_days">최근 30일</string>
+
+    <string name="balance">잔고</string>
+    <string name="estimated_earnings">예상 수익</string>
+    <string name="impressions">노출 수</string>
+    <string name="clicks">클릭 수</string>
 </resources>
