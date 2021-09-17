@@ -100,16 +100,17 @@ private fun OverviewContent(dashboardData: DashboardData) {
             .verticalScroll(rememberScrollState())
             .semantics { contentDescription = "Overview Screen" }
     ) {
-        Text(
-            text = stringResource(R.string.last_7_days),
-            style = MaterialTheme.typography.button,
-            color = MaterialTheme.colors.primary
-        )
+        Spacer(Modifier.height(8.dp))
         OverviewCard(
             title = stringResource(R.string.balance),
             amountText = dashboardData.totalUnpaidAmount
         )
         Spacer(Modifier.height(DefaultPadding))
+        Text(
+            text = stringResource(R.string.last_7_days),
+            style = MaterialTheme.typography.button,
+            color = MaterialTheme.colors.primary
+        )
         OverviewCard(
             title = stringResource(R.string.estimated_earnings),
             amountText = dashboardData.recentlyEstimatedIncome
