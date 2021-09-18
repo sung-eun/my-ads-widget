@@ -6,6 +6,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.Scope
+import com.myads.adsense.data.datasource.remote.ServerConfig
 
 object GoogleSignInClientUtils {
     const val REQUEST_CODE_PERMISSION = 101
@@ -15,7 +16,7 @@ object GoogleSignInClientUtils {
     fun getGoogleSignInClient(activity: Activity): GoogleSignInClient {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestProfile()
-            .requestServerAuthCode(activity.getString(R.string.google_server_client_id))
+            .requestServerAuthCode(ServerConfig.CLIENT_ID)
             .requestScopes(Scope(ADSENSE_READ))
             .build()
 
