@@ -90,6 +90,7 @@ lint/tmp/
 aos/src/debug/res/values/config.xml
 aos/src/main/res/values/config.xml
 feature/adsense/data/src/commonMain/kotlin/com/myads/adsense/data/datasource/remote/ServerConfig.kt
+aos/google-services.json
 
 # ios
 # Mac OS X
