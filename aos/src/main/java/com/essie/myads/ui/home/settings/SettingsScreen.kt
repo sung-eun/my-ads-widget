@@ -132,6 +132,7 @@ private fun UserProfileRow(account: GoogleSignInAccount, onDisconnectClicked: ()
                 builder = {
                     transformations(CircleCropTransformation())
                     error(R.drawable.ic_ghost)
+                    placeholder(R.drawable.ic_ghost)
                 }
             ),
             contentScale = ContentScale.Inside,
