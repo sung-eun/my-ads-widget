@@ -21,10 +21,10 @@ kotlin {
 
     cocoapods {
         summary = "Domain Shared Module"
-        homepage = ""
+        homepage = "https://essie-cho.com"
         ios.deploymentTarget = "14.1"
-        frameworkName = "feature:adsense:domain"
-        // set path to your ios project podfile, e.g. podfile = project.file("../iosApp/Podfile")
+        frameworkName = "common-domain"
+        license = "Copyright (C) 2021 by essie-cho"
     }
 
     sourceSets {

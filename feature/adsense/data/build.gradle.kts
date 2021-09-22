@@ -22,10 +22,10 @@ kotlin {
 
     cocoapods {
         summary = "AdSense Data Shared Module"
-        homepage = ""
+        homepage = "https://essie-cho.com"
         ios.deploymentTarget = "14.1"
-        frameworkName = "feature:adsense:data"
-        // set path to your ios project podfile, e.g. podfile = project.file("../iosApp/Podfile")
+        frameworkName = "adsense-data"
+        license = "Copyright (C) 2021 by essie-cho"
     }
 
     val ktorVersion = "1.6.1"
