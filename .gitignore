@@ -109,3 +109,5 @@ ios/xcuserdata/
 # Podfiles
 ios/Pods/
 # ios
+xcschememanagement.plist
+contents.xcworkspacedata

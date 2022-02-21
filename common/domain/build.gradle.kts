@@ -23,7 +23,7 @@ kotlin {
         summary = "Domain Shared Module"
         homepage = "https://essie-cho.com"
         ios.deploymentTarget = "14.1"
-        frameworkName = "common-domain"
+        frameworkName = "CommonDomain"
         license = "Copyright (C) 2021 by essie-cho"
     }
 

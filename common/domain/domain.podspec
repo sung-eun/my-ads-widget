@@ -1,14 +1,14 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'domain'
     spec.version                  = '1.0'
-    spec.homepage                 = ''
+    spec.homepage                 = 'https://essie-cho.com'
     spec.source                   = { :git => "Not Published", :tag => "Cocoapods/#{spec.name}/#{spec.version}" }
     spec.authors                  = ''
-    spec.license                  = ''
+    spec.license                  = 'Copyright (C) 2021 by essie-cho'
     spec.summary                  = 'Domain Shared Module'
 
     spec.static_framework         = true
-    spec.vendored_frameworks      = "build/cocoapods/framework/feature:adsense:domain.framework"
+    spec.vendored_frameworks      = "build/cocoapods/framework/CommonDomain.framework"
     spec.libraries                = "c++"
     spec.module_name              = "#{spec.name}_umbrella"
 
