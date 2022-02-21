@@ -1,16 +1,21 @@
 PODS:
-  - shared (1.0)
+  - data (1.0)
+  - domain (1.0)
 
 DEPENDENCIES:
-  - shared (from `../shared`)
+  - data (from `../feature/adsense/data`)
+  - domain (from `../common/domain`)
 
 EXTERNAL SOURCES:
-  shared:
-    :path: "../shared"
+  data:
+    :path: "../feature/adsense/data"
+  domain:
+    :path: "../common/domain"
 
 SPEC CHECKSUMS:
-  shared: 29346581d099b8843a69aab157c4d0577c3c8287
+  data: e63bc842f872376c59383f4e18104d2db47eff65
+  domain: a526b0ab5839f4e098e431fc59f686ad140c5401
 
-PODFILE CHECKSUM: c6c52887ed3e82853aa641252abb436bb66b782e
+PODFILE CHECKSUM: 7828041d2c8db21bb9f35be0bee7d3ec354433f2
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2

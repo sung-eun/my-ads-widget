@@ -24,7 +24,7 @@ kotlin {
         summary = "AdSense Data Shared Module"
         homepage = "https://essie-cho.com"
         ios.deploymentTarget = "14.1"
-        frameworkName = "adsense-data"
+        frameworkName = "AdSenseData"
         license = "Copyright (C) 2021 by essie-cho"
     }
 

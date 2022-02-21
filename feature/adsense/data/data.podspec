@@ -1,14 +1,14 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'data'
     spec.version                  = '1.0'
-    spec.homepage                 = ''
+    spec.homepage                 = 'https://essie-cho.com'
     spec.source                   = { :git => "Not Published", :tag => "Cocoapods/#{spec.name}/#{spec.version}" }
     spec.authors                  = ''
-    spec.license                  = ''
+    spec.license                  = 'Copyright (C) 2021 by essie-cho'
     spec.summary                  = 'AdSense Data Shared Module'
 
     spec.static_framework         = true
-    spec.vendored_frameworks      = "build/cocoapods/framework/data.framework"
+    spec.vendored_frameworks      = "build/cocoapods/framework/AdSenseData.framework"
     spec.libraries                = "c++"
     spec.module_name              = "#{spec.name}_umbrella"
 
