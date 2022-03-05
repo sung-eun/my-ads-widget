@@ -9,31 +9,59 @@
 import SwiftUI
 import UIKit
 
-struct CircleImage: View {
+struct CircleRemoteImage: View {
     @ObservedObject var imageLoader: ImageLoader
     @State var image: UIImage = UIImage()
     
-    init(imageUrl: String) {
+    let borderColor: Color
+    
+    init(imageUrl: String, borderColor: Color = Color("Green200")) {
         imageLoader = ImageLoader(urlString: imageUrl)
+        self.borderColor = borderColor
     }
     
     var body: some View {
-        Image(uiImage: image)
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 32, height: 32, alignment: .center)
-            .clipShape(Circle())
-            .overlay(Circle()
-                        .stroke(Color("Green200"), lineWidth: 1.5)
-                        .foregroundColor(Color("Gray200")))
-            .onReceive(imageLoader.didChange) { data in
-                self.image = UIImage(data: data) ?? UIImage()
-            }
+        ZStack{
+            Circle().foregroundColor(Color("Gray200"))
+                .frame(width: 32, height: 32, alignment: .center)
+            Image(uiImage: image)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 32, height: 32, alignment: .center)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(borderColor, lineWidth: 1.5))
+                .onReceive(imageLoader.didChange) { data in
+                    self.image = UIImage(data: data) ?? UIImage()
+                }
+        }
+    }
+}
+
+struct CircleResourceImage: View {
+    let image: UIImage!
+    let borderColor: Color
+    
+    init (image: UIImage!, borderColor: Color = Color("Green200")) {
+        self.image = image
+        self.borderColor = borderColor
+    }
+    
+    var body: some View {
+        ZStack{
+            Circle().foregroundColor(Color("Gray200"))
+                .frame(width: 32, height: 32, alignment: .center)
+            Image(uiImage: image)
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 32, height: 32, alignment: .center)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(borderColor, lineWidth: 1.5))
+        }
     }
 }
 
 struct CircleImage_Previews: PreviewProvider {
     static var previews: some View {
-        CircleImage(imageUrl: "https://www.fujifilm.com/products/digital_cameras/x/fujifilm_x_t1/sample_images/img/index/pic_01.jpg")
+//        CircleRemoteImage(imageUrl: "https://www.fujifilm.com/products/digital_cameras/x/fujifilm_x_t1/sample_images/img/index/pic_01.jpg")
+        CircleResourceImage(image: UIImage(named: "IconGhost"))
     }
 }

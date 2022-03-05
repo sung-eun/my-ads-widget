@@ -145,7 +145,7 @@ private struct ErrorView: View {
             .background(Color("Yellow"))
         } else if (error == HomeErrorType.ADSENSE_NOT_PERMITTED) {
             Text(NSLocalizedString("error_no_permission_read_adsense", comment: ""))
-                .font(.system(size: 14, weight: .light))
+                .font(.system(size: 16))
                 .foregroundColor(Color("Background"))
                 .frame(
                       minWidth: 0,
