@@ -102,12 +102,7 @@ ios/*.mode1v3
 ios/*.mode2v3
 ios/*.perspectivev3
 ios/*.xcuserstate
-ios/*.xcworkspace/
-ios/project.xcworkspace/
 ios/xcuserdata/
 
 # Podfiles
 ios/Pods/
-# ios
-xcschememanagement.plist
-contents.xcworkspacedata
