@@ -29,6 +29,7 @@ struct OverviewView: View {
         .refreshable {
             viewModel.pullToRefresh()
         }
+        .background(Color("Black"))
     }
 }
 
@@ -177,6 +178,7 @@ struct OverviewView_Previews: PreviewProvider {
 //            ErrorView(HomeErrorType.ADSENSE_NOT_PERMITTED, {})
             OverviewContent(DashboardData(impressions: 33, clicks: 4, recentlyEstimatedIncome: "$10.2", dateRange: .last7days, totalUnpaidAmount: "$99.00"))
         }
+        .background(Color("Black"))
 //        OverviewContent(DashboardData(impressions: 33, clicks: 4, recentlyEstimatedIncome: "$10.2", dateRange: .last7days, totalUnpaidAmount: "$99.00"))
     }
 }

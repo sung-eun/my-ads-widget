@@ -106,3 +106,7 @@ ios/xcuserdata/
 
 # Podfiles
 ios/Pods/
+xcschememanagement.plist
+Package.resolved
+UserInterfaceState.xcuserstate
+GoogleService-Info.plist

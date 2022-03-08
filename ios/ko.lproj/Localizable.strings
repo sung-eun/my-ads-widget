@@ -10,6 +10,8 @@
 "error_no_permission_read_adsense" = "연결된 Google 계정의 AdSense 읽기 권한이 허용되지 않았습니다. 여기를 클릭하여 AdSense 읽기 권한을 허용해주세요.";
 
 "connect_account" = "Google 계정 연결하기";
+"unknown" = "Unknown";
+"account" = "계정";
 
 "balance" = "잔고";
 "estimated_earnings" = "예상 수익";

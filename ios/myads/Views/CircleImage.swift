@@ -15,7 +15,7 @@ struct CircleRemoteImage: View {
     
     let borderColor: Color
     
-    init(imageUrl: String, borderColor: Color = Color("Green200")) {
+    init(imageUrl: String!, borderColor: Color = Color("Green200")) {
         imageLoader = ImageLoader(urlString: imageUrl)
         self.borderColor = borderColor
     }
@@ -26,12 +26,12 @@ struct CircleRemoteImage: View {
                 .frame(width: 32, height: 32, alignment: .center)
             Image(uiImage: image)
                 .resizable()
-                .aspectRatio(contentMode: .fill)
+                .aspectRatio(contentMode: .fit)
                 .frame(width: 32, height: 32, alignment: .center)
                 .clipShape(Circle())
                 .overlay(Circle().stroke(borderColor, lineWidth: 1.5))
                 .onReceive(imageLoader.didChange) { data in
-                    self.image = UIImage(data: data) ?? UIImage()
+                    self.image = UIImage(data: data) ?? UIImage(named: "IconGhost") ?? UIImage()
                 }
         }
     }
