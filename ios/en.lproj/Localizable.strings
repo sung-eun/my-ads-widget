@@ -10,6 +10,8 @@
 "error_no_permission_read_adsense" = "AdSense read permission on your Google Account is not allowed. Please click here to grant read permission.";
 
 "connect_account" = "Connect Google account";
+"message_confirm_disconnect_account" = "Are you sure you want to disconnect your account?";
+
 "unknown" = "Unknown";
 "account" = "Account";
 
@@ -19,3 +21,6 @@
 "clicks" = "Clicks";
 
 "last_7_days" = "Last 7days";
+
+"label_ok" = "OK";
+"label_cancel" = "Cancel";

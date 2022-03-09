@@ -10,9 +10,17 @@ import SwiftUI
 import GoogleSignIn
 
 struct SettingsView: View {
+    @StateObject var viewModel: SettingsViewModel = SettingsViewModel()
+    
     var body: some View {
         VStack(alignment: .leading) {
-            AccountSettingContent(onConnectClick: {}, googleUser: nil, onDisconnectClick: {})
+            AccountSettingContent(
+                onConnectClick: { viewModel.connectGoogle() },
+                googleUser: viewModel.googleUser,
+                onDisconnectClick: { viewModel.disconnectGoogle() })
+            if (viewModel.googleUser != nil) {
+                
+            }
         }
         .padding(16)
         .frame(
@@ -65,7 +73,7 @@ private struct AnonymousProfileRow: View {
         HStack(alignment: .center) {
             CircleResourceImage(image: UIImage(named: "IconGhost"), borderColor: Color("Gray200"))
             Spacer().frame(width: 12)
-            Text(NSLocalizedString("connect_account", comment: ""))
+            Text("connect_account")
                 .font(.system(size: 16))
                 .foregroundColor(Color("White"))
                 .lineLimit(1)
@@ -86,6 +94,8 @@ private struct UserProfileRow: View {
     let googleUser: GIDGoogleUser
     let onDisconnectClicked: () -> Void
     
+    @State private var showingAlert: Bool = false
+    
     init(_ googleUser: GIDGoogleUser, _ onDisconnectClicked: @escaping () -> Void) {
         self.googleUser = googleUser
         self.onDisconnectClicked = onDisconnectClicked
@@ -101,44 +111,15 @@ private struct UserProfileRow: View {
                 .lineLimit(1)
             Spacer().frame(width: 20)
             HStack(alignment: .center) {
-                Button(role: .destructive, action: onDisconnectClicked) {
+                Button(role: .destructive, action: {
+                    self.showingAlert = true
+                }) {
                     Image(systemName: "xmark")
                         .foregroundColor(Color("Error"))
                         .frame(width: 30, height: 30, alignment: .center)
                 }
-            }
-            .frame(
-                minWidth: 0,
-                maxWidth: .infinity,
-                alignment: .trailing
-            )
-        }
-        .frame(
-            minWidth: 0,
-            maxWidth: .infinity,
-            minHeight: 0,
-            maxHeight: 56,
-            alignment: .leading
-        )
-    }
-}
-
-private struct Test: View {
-    var body: some View {
-        HStack(alignment: .center) {
-            CircleRemoteImage(imageUrl: "https://www.fujifilm.com/products/digital_cameras/x/fujifilm_x_t1/sample_images/img/index/pic_01.jpg", borderColor: Color("Green200"))
-            Spacer().frame(width: 12)
-            Text("display")
-//            Text("display" ?? NSLocalizedString("unknown", comment: ""))
-                .font(.system(size: 16))
-                .foregroundColor(Color("White"))
-                .lineLimit(1)
-            Spacer().frame(width: 20)
-            HStack(alignment: .center) {
-                Button(role: .destructive, action: {}) {
-                    Image(systemName: "xmark")
-                        .foregroundColor(Color("Error"))
-                        .frame(width: 30, height: 30, alignment: .center)
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("message_confirm_disconnect_account"), primaryButton: .destructive(Text("label_ok"), action: onDisconnectClicked), secondaryButton: .cancel(Text("label_cancel")))
                 }
             }
             .frame(
@@ -159,6 +140,6 @@ private struct Test: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        EmptyView()
     }
 }
