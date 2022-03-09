@@ -23,6 +23,8 @@
 		FBF82FBC27D435FF0010DB45 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = FBF82FBB27D435FF0010DB45 /* GoogleSignIn */; };
 		FBF82FBF27D437B00010DB45 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FBF82FBE27D437B00010DB45 /* FirebaseAnalytics */; };
 		FBF82FC127D438240010DB45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBF82FC027D438230010DB45 /* GoogleService-Info.plist */; };
+		FBF82FC327D892210010DB45 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF82FC227D892200010DB45 /* HomeViewModel.swift */; };
+		FBF82FC627D892490010DB45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBF82FC527D892490010DB45 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		FBF82FB627D4355B0010DB45 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		FBF82FB727D4355B0010DB45 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		FBF82FC027D438230010DB45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FBF82FC227D892200010DB45 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		FBF82FC527D892490010DB45 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +136,7 @@
 		FB03AE7926FF461400F94CBC /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				FBF82FC427D892360010DB45 /* Splash */,
 				FB03AE7A26FF462D00F94CBC /* Home */,
 			);
 			path = UI;
@@ -143,6 +148,7 @@
 				FB49E3D327C52C9500F3780F /* HomeErrorType.swift */,
 				FB03AE7C26FF463800F94CBC /* Settings */,
 				FB03AE7B26FF463200F94CBC /* Overview */,
+				FBF82FC227D892200010DB45 /* HomeViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -163,6 +169,14 @@
 				FBF82FB727D4355B0010DB45 /* SettingsViewModel.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		FBF82FC427D892360010DB45 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				FBF82FC527D892490010DB45 /* LaunchScreen.storyboard */,
+			);
+			path = Splash;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +249,7 @@
 				FB03AE7826FCA96200F94CBC /* Assets.xcassets in Resources */,
 				FBF82FC127D438240010DB45 /* GoogleService-Info.plist in Resources */,
 				FB49E3D927C52F4000F3780F /* Localizable.strings in Resources */,
+				FBF82FC627D892490010DB45 /* LaunchScreen.storyboard in Resources */,
 				FB03AE2326FC98D800F94CBC /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,6 +289,7 @@
 				FB49E3DF27C53E4E00F3780F /* OverviewViewModel.swift in Sources */,
 				FBF82FB827D4355C0010DB45 /* SettingsView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				FBF82FC327D892210010DB45 /* HomeViewModel.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				FB03AE2626FC9CF500F94CBC /* ImageLoader.swift in Sources */,
 				FB49E3D427C52C9500F3780F /* HomeErrorType.swift in Sources */,
