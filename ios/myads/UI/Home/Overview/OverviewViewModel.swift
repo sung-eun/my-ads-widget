@@ -12,7 +12,7 @@ import CommonDomain
 class OverviewViewModel: ObservableObject {
     @Published var loading = false
     @Published var loadingProgress: Double = 0
-    @Published var error: HomeErrorType! = nil
+    @Published var error: HomeErrorType? = nil
     @Published var dashboardData: DashboardData = DashboardData(impressions: 0, clicks: 0, recentlyEstimatedIncome: "$0.00", dateRange: .last7days, totalUnpaidAmount: "$0.00")
     
     func pullToRefresh() {

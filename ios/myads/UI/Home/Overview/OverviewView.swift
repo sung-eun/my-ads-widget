@@ -44,11 +44,11 @@ struct OverviewContent: View {
         VStack {
             Spacer().frame(height: 8)
             OverviewCard(
-                title: NSLocalizedString("balance", comment:""),
+                title: "balance",
                 amountText: dashboardData.totalUnpaidAmount
             )
             Spacer().frame(height: 12)
-            Text(NSLocalizedString("last_7_days", comment: ""))
+            Text("last_7_days")
                 .font(.system(size: 14, weight: .bold))
                 .foregroundColor(Color("Green500"))
                 .frame(
@@ -57,17 +57,17 @@ struct OverviewContent: View {
                       alignment: .leading
                 )
             OverviewCard(
-                title: NSLocalizedString("estimated_earnings", comment:""),
+                title: "estimated_earnings",
                 amountText: dashboardData.recentlyEstimatedIncome
             )
             Spacer().frame(height: 12)
             OverviewCard(
-                title: NSLocalizedString("clicks", comment:""),
+                title: "clicks",
                 amountText: String(dashboardData.clicks)
             )
             Spacer().frame(height: 12)
             OverviewCard(
-                title: NSLocalizedString("impressions", comment:""),
+                title: "impressions",
                 amountText: String(dashboardData.impressions)
             )
             Spacer().frame(height: 12)
@@ -119,17 +119,17 @@ private struct OverviewCard: View {
 }
 
 private struct ErrorView: View {
-    let error: HomeErrorType!
+    let error: HomeErrorType?
     let requestAdScopePermission: () -> Void
     
-    init(_ error: HomeErrorType!, _ requestAdScopePermission: @escaping () -> Void) {
+    init(_ error: HomeErrorType?, _ requestAdScopePermission: @escaping () -> Void) {
         self.error = error
         self.requestAdScopePermission = requestAdScopePermission
     }
     
     var body: some View {
         if (error == HomeErrorType.ACCOUNT_NOT_CONNECTED) {
-            Text(NSLocalizedString("error_no_account", comment: ""))
+            Text("error_no_account")
                 .font(.system(size: 14, weight: .light))
                 .foregroundColor(Color("Background"))
                 .frame(
@@ -145,7 +145,7 @@ private struct ErrorView: View {
             .padding(12)
             .background(Color("Yellow"))
         } else if (error == HomeErrorType.ADSENSE_NOT_PERMITTED) {
-            Text(NSLocalizedString("error_no_permission_read_adsense", comment: ""))
+            Text("error_no_permission_read_adsense")
                 .font(.system(size: 16))
                 .foregroundColor(Color("Background"))
                 .frame(
@@ -168,17 +168,24 @@ private struct ErrorView: View {
 }
 
 struct OverviewView_Previews: PreviewProvider {
-    
     static var previews: some View {
 //        OverviewCard(title: "title", amountText: "$0.00")
 //        ErrorView(nil, {})
-        ScrollView {
+//        ScrollView {
 //            ProgressView(value: 0, total: 1000)
 //                .accentColor(Color("Green500"))
 //            ErrorView(HomeErrorType.ADSENSE_NOT_PERMITTED, {})
-            OverviewContent(DashboardData(impressions: 33, clicks: 4, recentlyEstimatedIncome: "$10.2", dateRange: .last7days, totalUnpaidAmount: "$99.00"))
-        }
-        .background(Color("Black"))
+//            OverviewContent(DashboardData(impressions: 33, clicks: 4, recentlyEstimatedIncome: "$10.2", dateRange: .last7days, totalUnpaidAmount: "$99.00"))
+//        }
+//        .background(Color("Black"))
 //        OverviewContent(DashboardData(impressions: 33, clicks: 4, recentlyEstimatedIncome: "$10.2", dateRange: .last7days, totalUnpaidAmount: "$99.00"))
+        Button(action: {
+                    
+                }) {
+                    Text("Show Alert")
+                }
+                .alert(isPresented: .constant(true)) {
+        Alert(title: Text("title_confirm_disconnect_account"), message: Text("message_confirm_disconnect_account"), primaryButton: .destructive(Text("label_ok"), action: {}), secondaryButton: .cancel(Text("label_cancel")))
+                }
     }
 }
