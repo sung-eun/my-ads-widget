@@ -10,12 +10,7 @@ import SwiftUI
 import CommonDomain
 
 struct OverviewView: View {
-    @StateObject var viewModel: OverviewViewModel = OverviewViewModel()
-    let requestAdScopePermission: () -> Void
-    
-    init(requestAdScopePermission: @escaping () -> Void) {
-        self.requestAdScopePermission = requestAdScopePermission
-    }
+    @EnvironmentObject var viewModel: HomeViewModel
     
     var body: some View {
         ScrollView {
@@ -23,7 +18,7 @@ struct OverviewView: View {
                 ProgressView(value: viewModel.loadingProgress, total: 10)
                     .accentColor(Color("Green500"))
             }
-            ErrorView(viewModel.error, requestAdScopePermission)
+            ErrorView(viewModel.error, viewModel.requestAdScopePermission)
             OverviewContent(viewModel.dashboardData)
         }
         .refreshable {

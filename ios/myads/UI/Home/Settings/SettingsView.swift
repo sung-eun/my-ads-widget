@@ -10,7 +10,7 @@ import SwiftUI
 import GoogleSignIn
 
 struct SettingsView: View {
-    @StateObject var viewModel: SettingsViewModel = SettingsViewModel()
+    @EnvironmentObject var viewModel: HomeViewModel
     
     var body: some View {
         VStack(alignment: .leading) {
