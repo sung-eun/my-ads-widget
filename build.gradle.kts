@@ -1,6 +1,6 @@
 buildscript {
-    val kotlin_version by extra("1.5.21")
-    val compose_version by extra ("1.0.2")
+    val kotlin_version by extra("1.6.0")
+    val compose_version by extra ("1.1.1")
 
     repositories {
         gradlePluginPortal()
@@ -19,8 +19,4 @@ allprojects {
         google()
         mavenCentral()
     }
-}
-
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
 }

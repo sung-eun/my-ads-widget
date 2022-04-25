@@ -17,6 +17,8 @@
 		FB03AE7E26FF464F00F94CBC /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB03AE7D26FF464F00F94CBC /* OverviewView.swift */; };
 		FB49E3D427C52C9500F3780F /* HomeErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB49E3D327C52C9500F3780F /* HomeErrorType.swift */; };
 		FB49E3D927C52F4000F3780F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FB49E3DB27C52F4000F3780F /* Localizable.strings */; };
+		FBF0DCBA28118EB10001A433 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0DCB928118EB00001A433 /* PullToRefreshView.swift */; };
+		FBF0DCBD2816EA0E0001A433 /* GoogleAuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0DCBC2816EA0E0001A433 /* GoogleAuthDelegate.swift */; };
 		FBF82FB827D4355C0010DB45 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF82FB627D4355B0010DB45 /* SettingsView.swift */; };
 		FBF82FBC27D435FF0010DB45 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = FBF82FBB27D435FF0010DB45 /* GoogleSignIn */; };
 		FBF82FBF27D437B00010DB45 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FBF82FBE27D437B00010DB45 /* FirebaseAnalytics */; };
@@ -41,6 +43,8 @@
 		FB49E3D327C52C9500F3780F /* HomeErrorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeErrorType.swift; sourceTree = "<group>"; };
 		FB49E3DA27C52F4000F3780F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FB49E3DC27C52F4200F3780F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FBF0DCB928118EB00001A433 /* PullToRefreshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshView.swift; sourceTree = "<group>"; };
+		FBF0DCBC2816EA0E0001A433 /* GoogleAuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthDelegate.swift; sourceTree = "<group>"; };
 		FBF82FB627D4355B0010DB45 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		FBF82FC027D438230010DB45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FBF82FC227D892200010DB45 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -94,6 +98,7 @@
 		7555FF7D242A565900829871 /* myads */ = {
 			isa = PBXGroup;
 			children = (
+				FBF0DCBB2816E9F80001A433 /* Delegates */,
 				FB03AE7926FF461400F94CBC /* UI */,
 				FB03AE2426FC9CD700F94CBC /* Utils */,
 				FB03AE1F26FC94CE00F94CBC /* Views */,
@@ -117,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				FB03AE2026FC953500F94CBC /* CircleImage.swift */,
+				FBF0DCB928118EB00001A433 /* PullToRefreshView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -163,6 +169,14 @@
 				FBF82FB627D4355B0010DB45 /* SettingsView.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		FBF0DCBB2816E9F80001A433 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				FBF0DCBC2816EA0E0001A433 /* GoogleAuthDelegate.swift */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 		FBF82FC427D892360010DB45 /* Splash */ = {
@@ -285,7 +299,9 @@
 				FBF82FC327D892210010DB45 /* HomeViewModel.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				FB03AE2626FC9CF500F94CBC /* ImageLoader.swift in Sources */,
+				FBF0DCBA28118EB10001A433 /* PullToRefreshView.swift in Sources */,
 				FB49E3D427C52C9500F3780F /* HomeErrorType.swift in Sources */,
+				FBF0DCBD2816EA0E0001A433 /* GoogleAuthDelegate.swift in Sources */,
 				FB03AE7E26FF464F00F94CBC /* OverviewView.swift in Sources */,
 				FB03AE2126FC953500F94CBC /* CircleImage.swift in Sources */,
 			);
@@ -443,8 +459,6 @@
 					"-l\"c++\"",
 					"-framework",
 					"\"AdSenseData\"",
-					"-framework",
-					"\"CommonDomain\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.essie.myads;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -472,8 +486,6 @@
 					"-l\"c++\"",
 					"-framework",
 					"\"AdSenseData\"",
-					"-framework",
-					"\"CommonDomain\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.essie.myads;
 				PRODUCT_NAME = "$(TARGET_NAME)";

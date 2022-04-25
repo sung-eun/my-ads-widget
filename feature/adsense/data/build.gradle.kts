@@ -21,11 +21,15 @@ kotlin {
     iosTarget("ios") {}
 
     cocoapods {
-        summary = "AdSense Data Shared Module"
-        homepage = "https://essie-cho.com"
-        ios.deploymentTarget = "14.1"
-        frameworkName = "AdSenseData"
-        license = "Copyright (C) 2021 by essie-cho"
+        framework {
+            summary = "AdSense Data Shared Module"
+            homepage = "https://essie-cho.com"
+            ios.deploymentTarget = "14.1"
+            baseName = "AdSenseData"
+            license = "Copyright (C) 2021 by essie-cho"
+
+            export(project(":common:domain"))
+        }
     }
 
     val ktorVersion = "1.6.1"
@@ -35,15 +39,19 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("io.ktor:ktor-client-logging:$ktorVersion")
+//                implementation("io.ktor:ktor-client-logging:$ktorVersion")
                 implementation("io.ktor:ktor-client-serialization:$ktorVersion")
                 implementation("com.liftric:kvault:$kvaultVersion")
-                implementation(project(":common:domain"))
+
+                implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt")
+
+                api(project(":common:domain"))
             }
         }
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-cio:$ktorVersion")
+                implementation("io.ktor:ktor-client-core-jvm:$ktorVersion")
+                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
             }
         }
         val iosMain by getting {

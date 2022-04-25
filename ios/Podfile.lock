@@ -1,21 +1,16 @@
 PODS:
   - data (1.0)
-  - domain (1.0)
 
 DEPENDENCIES:
   - data (from `../feature/adsense/data`)
-  - domain (from `../common/domain`)
 
 EXTERNAL SOURCES:
   data:
     :path: "../feature/adsense/data"
-  domain:
-    :path: "../common/domain"
 
 SPEC CHECKSUMS:
-  data: e63bc842f872376c59383f4e18104d2db47eff65
-  domain: a526b0ab5839f4e098e431fc59f686ad140c5401
+  data: 403229f95c0b94d0f7d716ae95ed7db8ba1ca576
 
-PODFILE CHECKSUM: 7828041d2c8db21bb9f35be0bee7d3ec354433f2
+PODFILE CHECKSUM: b86edb66b1441cae164a483a0f88b806d09d8ac4
 
 COCOAPODS: 1.11.2

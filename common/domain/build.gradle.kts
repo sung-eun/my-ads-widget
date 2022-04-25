@@ -33,11 +33,8 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
             }
         }
-        val commonTest by getting
         val androidMain by getting
-        val androidTest by getting
         val iosMain by getting
-        val iosTest by getting
     }
 }
 

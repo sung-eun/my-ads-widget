@@ -7,24 +7,32 @@
 //
 
 import SwiftUI
-import CommonDomain
+import AdSenseData
 
 struct OverviewView: View {
     @EnvironmentObject var viewModel: HomeViewModel
+    @State private var refresh: Bool = false
     
     var body: some View {
         ScrollView {
-            if (viewModel.loading) {
-                ProgressView(value: viewModel.loadingProgress, total: 10)
-                    .accentColor(Color("Green500"))
+            PullToRefreshSwiftUI(needRefresh: $refresh,
+                                 coordinateSpaceName: "pullToRefresh")
+            {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    withAnimation { refresh = false }
+                }
+                viewModel.refresh()
             }
-            ErrorView(viewModel.error, viewModel.requestAdScopePermission)
-            OverviewContent(viewModel.dashboardData)
-        }
-        .refreshable {
-            viewModel.pullToRefresh()
+            VStack {
+                if (viewModel.loading) {
+                    ProgressView()
+                }
+                ErrorView(viewModel.error, viewModel.requestAdScopePermission)
+                OverviewContent(viewModel.dashboardData)
+            }
         }
         .background(Color("Black"))
+        .accentColor(Color("Green500"))
     }
 }
 
