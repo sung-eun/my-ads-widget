@@ -20,7 +20,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
-import com.essie.myads.BuildConfig
 import com.essie.myads.R
 import com.essie.myads.common.GoogleSignInClientUtils
 import com.essie.myads.common.ui.component.CustomTabRow
@@ -36,12 +35,11 @@ import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
+import com.myads.adsense.data.GoogleAuthDelegate
 import com.myads.adsense.data.LocalDataSourceDelegate
 import com.myads.adsense.data.datasource.remote.AdSenseRemoteDataSource
-import com.myads.adsense.data.datasource.remote.GoogleAuthRemoteDataSource
 import com.myads.adsense.data.repository.AccountRepository
 import com.myads.adsense.data.repository.AdsRepository
-import com.myads.adsense.data.repository.AuthRepository
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
 
@@ -55,18 +53,11 @@ class MainActivity : AppCompatActivity(), IGoogleAccountManager {
     private var firstBackPressedTimestamp: Long = -1
 
     //TODO DI
-    private val authLocalDataSource by lazy { LocalDataSourceDelegate.getAuthLocalDataSource(this) }
+    private val googleAuthDelegate by lazy { GoogleAuthDelegate(this, GoogleSignInClientUtils) }
     private val accountUseCase by lazy {
         AccountUseCase(
-            AuthRepository(
-                authLocalDataSource,
-                GoogleAuthRemoteDataSource(BuildConfig.DEBUG)
-            ),
             AccountRepository(
-                AdSenseRemoteDataSource(
-                    authLocalDataSource,
-                    BuildConfig.DEBUG
-                ),
+                AdSenseRemoteDataSource(googleAuthDelegate),
                 LocalDataSourceDelegate.getAdSenseLocalDataSource(this)
             )
         )
@@ -79,10 +70,7 @@ class MainActivity : AppCompatActivity(), IGoogleAccountManager {
                 accountUseCase,
                 DashboardDataUseCase(
                     AdsRepository(
-                        AdSenseRemoteDataSource(
-                            authLocalDataSource,
-                            BuildConfig.DEBUG
-                        )
+                        AdSenseRemoteDataSource(googleAuthDelegate)
                     )
                 ),
                 this
@@ -128,12 +116,10 @@ class MainActivity : AppCompatActivity(), IGoogleAccountManager {
 
     private fun silentSignIn() {
         GoogleSignInClientUtils.getGoogleSignInClient(this).silentSignIn().addOnCompleteListener {
-            mainViewModel.refreshToken()
-
             val googleAccount = GoogleSignIn.getLastSignedInAccount(this)
             lifecycleScope.launch {
                 mainViewModel.updateGoogleAccount(googleAccount)
-                mainViewModel.fetchInitData(googleAccount?.serverAuthCode)
+                mainViewModel.fetchInitData()
             }
         }
     }
@@ -204,7 +190,7 @@ class MainActivity : AppCompatActivity(), IGoogleAccountManager {
                 handleGoogleSignInResult(data)
             } else if (requestCode == GoogleSignInClientUtils.REQUEST_CODE_PERMISSION) {
                 lifecycleScope.launch {
-                    mainViewModel.fetchInitData(GoogleSignIn.getLastSignedInAccount(this@MainActivity)?.serverAuthCode)
+                    mainViewModel.fetchInitData()
                 }
             }
         }
@@ -216,7 +202,7 @@ class MainActivity : AppCompatActivity(), IGoogleAccountManager {
             val account = task.getResult(ApiException::class.java)
             mainViewModel.updateGoogleAccount(account)
             lifecycleScope.launch {
-                mainViewModel.fetchInitData(account.serverAuthCode)
+                mainViewModel.fetchInitData()
             }
         } catch (e: ApiException) {
             e.printStackTrace()
