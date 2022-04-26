@@ -8,6 +8,7 @@
 
 import SwiftUI
 import GoogleSignIn
+import AdSenseData
 
 struct SettingsView: View {
     @EnvironmentObject var viewModel: HomeViewModel
@@ -19,7 +20,13 @@ struct SettingsView: View {
                 googleUser: viewModel.googleUser,
                 onDisconnectClick: { viewModel.disconnectGoogle() })
             if (viewModel.googleUser != nil) {
-                
+                AdAccountSettingContent(
+                    selectedAccountName: viewModel.selectedAdAccountName,
+                    adAccounts: viewModel.adAccounts,
+                    onSelectItem: { account in
+                        viewModel.selectAdAccount(account)
+                    }
+                    )
             }
         }
         .padding(16)
@@ -138,8 +145,99 @@ private struct UserProfileRow: View {
     }
 }
 
+private struct AdAccountSettingContent: View {
+    let selectedAccountName: String
+    let adAccounts: [AdAccount]
+    let onSelectItem: (AdAccount) -> Void
+    
+    @State var expanded: Bool = false
+    
+    init(selectedAccountName: String,
+         adAccounts: [AdAccount],
+         onSelectItem: @escaping (AdAccount) -> Void
+    ) {
+        self.selectedAccountName = selectedAccountName
+        self.adAccounts = adAccounts
+        self.onSelectItem = onSelectItem
+    }
+    
+    var body: some View {
+        VStack {
+            HStack(alignment: .center) {
+                Text(selectedAccountName)
+                    .font(.system(size: 16))
+                    .foregroundColor(Color("Black"))
+                    .truncationMode(.middle)
+                Spacer().frame(width: 8)
+                HStack(alignment: .center) {
+                    if (expanded) {
+                        Image(systemName: "chevron.up")
+                            .foregroundColor(Color("Black"))
+                            .frame(width: 5, height: 5, alignment: .center)
+                    } else {
+                        Image(systemName: "chevron.down")
+                            .foregroundColor(Color("Black"))
+                            .frame(width: 5, height: 5, alignment: .center)
+                    }
+                }
+                .frame(
+                    minWidth: 0,
+                    maxWidth: .infinity,
+                    alignment: .trailing
+                )
+            }
+            .padding(12)
+            .frame(
+                minWidth: 0,
+                maxWidth: .infinity,
+                alignment: .leading
+            )
+            .onTapGesture{
+                self.expanded.toggle()
+            }
+            
+            if (expanded) {
+                ForEach(adAccounts, id: \.self) { item in
+                    Text(item.id).onTapGesture {
+                        onSelectItem(item)
+                        self.expanded.toggle()
+                    }
+                    .font(.system(size: 16))
+                    .foregroundColor(Color("Black"))
+                    .padding(12)
+                }
+            }
+        }
+        .background(Color("Gray500"))
+        .cornerRadius(5)
+    }
+    
+}
+
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        EmptyView()
+        HStack {
+            VStack(alignment: .leading) {
+                Text("selectedAccountName")
+                    .font(.system(size: 16))
+                    .lineLimit(1)
+                    .foregroundColor(Color("Black"))
+            }
+            VStack(alignment: HorizontalAlignment.trailing) {
+                Image(systemName: "chevron.down")
+                    .frame(width: 10, height: 10, alignment: .center)
+            }
+            .frame(
+                minWidth: 0,
+                maxWidth: .infinity
+            )
+        }
+        .frame(
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            maxHeight: 56,
+            alignment: .leading
+        )
     }
 }

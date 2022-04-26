@@ -115,10 +115,36 @@ class HomeViewModel: ObservableObject {
                 self.dashboardData = dashboardData
             }
         }
+        
+        fetchAdAccounts()
+    }
+    
+    private func fetchAdAccounts() {
+        accountUseCase.getSelectedAccountId { id, error in
+            guard error == nil else { return }
+            self.accountUseCase.getAccounts { adAccounts, accountsError in
+                guard accountsError == nil else { return }
+                
+                if ((id == nil || id!.isEmpty) && (adAccounts != nil && !adAccounts!.isEmpty)) {
+                    self.selectedAdAccountName = adAccounts?[0].id ?? ""
+                } else {
+                    self.selectedAdAccountName = id ?? ""
+                }
+                
+                self.adAccounts = adAccounts ?? []
+            }
+        }
     }
     
     private func authenticate(authAction: @escaping GIDAuthenticationAction) {
         guard let googleUser = GIDSignIn.sharedInstance.currentUser else { return }
         googleUser.authentication.do(freshTokens: authAction)
+    }
+    
+    func selectAdAccount(_ adAccount: AdAccount) {
+        self.accountUseCase.selectAccount(account: adAccount) { result, error in
+            guard error == nil else { return }
+            self.selectedAdAccountName = adAccount.id
+        }
     }
 }
