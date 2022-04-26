@@ -22,19 +22,29 @@ struct ContentView: View {
     }
     
     var body: some View {
-        TabView {
-            OverviewView().environmentObject(viewModel)
-                .tabItem {
-                    Image(systemName: "chart.pie")
-                    Text("OVERVIEW")
-                }
+        VStack {
+            TabView {
+                OverviewView().environmentObject(viewModel)
+                    .tabItem {
+                        Image(systemName: "chart.pie")
+                        Text("OVERVIEW")
+                    }
+                
+                SettingsView().environmentObject(viewModel)
+                    .tabItem {
+                        Image(systemName: "person.fill")
+                        Text("SETTINGS")
+                    }
+            }
+            .accentColor(Color("Green200"))
             
-            SettingsView().environmentObject(viewModel)
-                .tabItem {
-                    Image(systemName: "person.fill")
-                    Text("SETTINGS")
-                }
+            GADBannerViewController()
+                .frame(
+                      minWidth: 0,
+                      maxWidth: .infinity,
+                      minHeight: 0,
+                      maxHeight: 60
+                )
         }
-        .accentColor(Color("Green200"))
     }
 }
