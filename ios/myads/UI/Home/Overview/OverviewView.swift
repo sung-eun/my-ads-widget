@@ -24,10 +24,10 @@ struct OverviewView: View {
                 viewModel.refresh()
             }
             VStack {
+                ErrorView(viewModel.error, viewModel.requestAdScopePermission)
                 if (viewModel.loading) {
                     ProgressView()
                 }
-                ErrorView(viewModel.error, viewModel.requestAdScopePermission)
                 OverviewContent(viewModel.dashboardData)
             }
         }

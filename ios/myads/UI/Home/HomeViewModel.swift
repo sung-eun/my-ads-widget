@@ -54,8 +54,9 @@ class HomeViewModel: ObservableObject {
     }
     
     func disconnectGoogle() {
-        GIDSignIn.sharedInstance.disconnect()
-        self.checkStatus()
+        GIDSignIn.sharedInstance.disconnect(callback: { error in
+            self.checkStatus()
+        })
     }
     
     private func checkStatus() {
@@ -106,6 +107,7 @@ class HomeViewModel: ObservableObject {
                 } else if (!self.hasAdSenseReadPermission()) {
                     self.error = HomeErrorType.ADSENSE_NOT_PERMITTED
                 }
+                self.loading = false
                 return
             }
             self.error = nil
