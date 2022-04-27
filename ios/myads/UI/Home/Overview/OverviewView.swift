@@ -91,7 +91,7 @@ private struct OverviewCard: View {
     
     var body: some View {
         VStack {
-            Text(title)
+            Text(NSLocalizedString(title, comment: ""))
                 .font(.system(size: 14, weight: .light))
                 .foregroundColor(Color.white)
                 .frame(

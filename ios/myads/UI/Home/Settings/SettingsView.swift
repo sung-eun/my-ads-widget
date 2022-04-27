@@ -166,17 +166,17 @@ private struct AdAccountSettingContent: View {
             HStack(alignment: .center) {
                 Text(selectedAccountName)
                     .font(.system(size: 16))
-                    .foregroundColor(Color("Black"))
+                    .foregroundColor(Color("White"))
                     .truncationMode(.middle)
                 Spacer().frame(width: 8)
                 HStack(alignment: .center) {
                     if (expanded) {
                         Image(systemName: "chevron.up")
-                            .foregroundColor(Color("Black"))
+                            .foregroundColor(Color("White"))
                             .frame(width: 5, height: 5, alignment: .center)
                     } else {
                         Image(systemName: "chevron.down")
-                            .foregroundColor(Color("Black"))
+                            .foregroundColor(Color("White"))
                             .frame(width: 5, height: 5, alignment: .center)
                     }
                 }
@@ -186,7 +186,6 @@ private struct AdAccountSettingContent: View {
                     alignment: .trailing
                 )
             }
-            .padding(12)
             .frame(
                 minWidth: 0,
                 maxWidth: .infinity,
@@ -206,10 +205,10 @@ private struct AdAccountSettingContent: View {
                     .foregroundColor(Color("Black"))
                     .padding(12)
                 }
+                .background(Color("Gray500"))
+                .cornerRadius(5)
             }
         }
-        .background(Color("Gray500"))
-        .cornerRadius(5)
     }
     
 }
