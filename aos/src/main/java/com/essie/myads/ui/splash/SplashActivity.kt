@@ -9,7 +9,7 @@ import kotlinx.coroutines.FlowPreview
 
 @SuppressLint("CustomSplashScreen")
 @FlowPreview
-class SplashActivity: AppCompatActivity() {
+class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

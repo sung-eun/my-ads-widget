@@ -2,5 +2,5 @@ target 'myads' do
   use_frameworks!
   platform :ios, '14.1'
   pod 'data', :path => '../feature/adsense/data'
-  pod 'domain', :path => '../common/domain'
+  pod 'Google-Mobile-Ads-SDK'
 end

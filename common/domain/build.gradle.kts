@@ -23,7 +23,7 @@ kotlin {
         summary = "Domain Shared Module"
         homepage = "https://essie-cho.com"
         ios.deploymentTarget = "14.1"
-        frameworkName = "common-domain"
+        frameworkName = "CommonDomain"
         license = "Copyright (C) 2021 by essie-cho"
     }
 
@@ -33,19 +33,16 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
             }
         }
-        val commonTest by getting
         val androidMain by getting
-        val androidTest by getting
         val iosMain by getting
-        val iosTest by getting
     }
 }
 
 android {
-    compileSdkVersion(30)
+    compileSdk = 31
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdkVersion(23)
-        targetSdkVersion(30)
+        minSdk = 23
+        targetSdk = 31
     }
 }

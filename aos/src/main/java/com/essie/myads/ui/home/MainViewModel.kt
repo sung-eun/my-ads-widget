@@ -1,6 +1,10 @@
 package com.essie.myads.ui.home
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.essie.myads.domain.entity.AdAccount
 import com.essie.myads.domain.entity.DashboardData
 import com.essie.myads.domain.entity.DateRange
@@ -9,7 +13,15 @@ import com.essie.myads.domain.usecase.DashboardDataUseCase
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -49,25 +61,16 @@ class MainViewModel(
     }
 
     @FlowPreview
-    suspend fun fetchInitData(authCode: String?) {
+    fun fetchInitData() {
         if (_googleAccount.value == null) {
             _error.postValue(HomeErrorType.ACCOUNT_NOT_CONNECTED)
         } else if (googleAccountManager.hasAdSensePermission().not()) {
             _error.postValue(HomeErrorType.ADSENSE_NOT_PERMITTED)
         }
 
-        if (authCode.isNullOrEmpty()) return
-
         viewModelScope.launch(Dispatchers.IO) {
-            accountUseCase.fetchAndSaveAuthToken(authCode)
             refresh()
             fetchAdAccounts()
-        }
-    }
-
-    fun refreshToken() {
-        viewModelScope.launch(Dispatchers.IO) {
-            accountUseCase.refreshToken()
         }
     }
 

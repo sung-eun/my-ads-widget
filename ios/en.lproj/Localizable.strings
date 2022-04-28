@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  myads
+
+  Created by sung-eun on 2022/02/22.
+  Copyright © 2022 essie-cho. All rights reserved.
+*/
+
+"error_no_account" = "Google account is not connected. Please connect your Google account in the Settings tab.";
+"error_no_permission_read_adsense" = "AdSense read permission on your Google Account is not allowed. Please click here to grant read permission.";
+
+"connect_account" = "Connect Google account";
+"message_confirm_disconnect_account" = "Are you sure you want to disconnect your account?";
+
+"unknown" = "Unknown";
+"account" = "Account";
+
+"balance" = "Balance";
+"estimated_earnings" = "Estimated earnings";
+"impressions" = "Impressions";
+"clicks" = "Clicks";
+
+"last_7_days" = "Last 7days";
+
+"label_ok" = "OK";
+"label_cancel" = "Cancel";

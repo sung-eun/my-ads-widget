@@ -3,23 +3,54 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
-		4DF6C397315C8397311422C1 /* Pods_myads.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0787122E92DB9066A0479C9 /* Pods_myads.framework */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		E856CC49F8113C3CEF709DCC /* Pods_myads.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 180294DDA0818767933379C0 /* Pods_myads.framework */; };
+		FB03AE2126FC953500F94CBC /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB03AE2026FC953500F94CBC /* CircleImage.swift */; };
+		FB03AE2326FC98D800F94CBC /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB03AE2226FC98D800F94CBC /* Colors.xcassets */; };
+		FB03AE2626FC9CF500F94CBC /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB03AE2526FC9CF500F94CBC /* ImageLoader.swift */; };
+		FB03AE7826FCA96200F94CBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB03AE7726FCA96100F94CBC /* Assets.xcassets */; };
+		FB03AE7E26FF464F00F94CBC /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB03AE7D26FF464F00F94CBC /* OverviewView.swift */; };
+		FB49E3D427C52C9500F3780F /* HomeErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB49E3D327C52C9500F3780F /* HomeErrorType.swift */; };
+		FB49E3D927C52F4000F3780F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FB49E3DB27C52F4000F3780F /* Localizable.strings */; };
+		FBF0DCBA28118EB10001A433 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0DCB928118EB00001A433 /* PullToRefreshView.swift */; };
+		FBF0DCBD2816EA0E0001A433 /* GoogleAuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0DCBC2816EA0E0001A433 /* GoogleAuthDelegate.swift */; };
+		FBF82FB827D4355C0010DB45 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF82FB627D4355B0010DB45 /* SettingsView.swift */; };
+		FBF82FBC27D435FF0010DB45 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = FBF82FBB27D435FF0010DB45 /* GoogleSignIn */; };
+		FBF82FBF27D437B00010DB45 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FBF82FBE27D437B00010DB45 /* FirebaseAnalytics */; };
+		FBF82FC127D438240010DB45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBF82FC027D438230010DB45 /* GoogleService-Info.plist */; };
+		FBF82FC327D892210010DB45 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF82FC227D892200010DB45 /* HomeViewModel.swift */; };
+		FBF82FC627D892490010DB45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBF82FC527D892490010DB45 /* LaunchScreen.storyboard */; };
+		FBFADA7328183264007A257E /* GADBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFADA7228183264007A257E /* GADBannerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		180294DDA0818767933379C0 /* Pods_myads.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_myads.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* myads.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myads.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		90117118936DC0BDACA64F78 /* Pods-myads.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myads.debug.xcconfig"; path = "Target Support Files/Pods-myads/Pods-myads.debug.xcconfig"; sourceTree = "<group>"; };
-		A0787122E92DB9066A0479C9 /* Pods_myads.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_myads.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D6B3FC16C7930081B9DDB28B /* Pods-myads.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myads.release.xcconfig"; path = "Target Support Files/Pods-myads/Pods-myads.release.xcconfig"; sourceTree = "<group>"; };
+		BFBA814969F8B833A2E69B84 /* Pods-myads.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myads.release.xcconfig"; path = "Target Support Files/Pods-myads/Pods-myads.release.xcconfig"; sourceTree = "<group>"; };
+		CC5757402AAC8266D8338342 /* Pods-myads.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myads.debug.xcconfig"; path = "Target Support Files/Pods-myads/Pods-myads.debug.xcconfig"; sourceTree = "<group>"; };
+		FB03AE2026FC953500F94CBC /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
+		FB03AE2226FC98D800F94CBC /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		FB03AE2526FC9CF500F94CBC /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		FB03AE7726FCA96100F94CBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FB03AE7D26FF464F00F94CBC /* OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewView.swift; sourceTree = "<group>"; };
+		FB49E3D327C52C9500F3780F /* HomeErrorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeErrorType.swift; sourceTree = "<group>"; };
+		FB49E3DA27C52F4000F3780F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FB49E3DC27C52F4200F3780F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FBF0DCB928118EB00001A433 /* PullToRefreshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshView.swift; sourceTree = "<group>"; };
+		FBF0DCBC2816EA0E0001A433 /* GoogleAuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthDelegate.swift; sourceTree = "<group>"; };
+		FBF82FB627D4355B0010DB45 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		FBF82FC027D438230010DB45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FBF82FC227D892200010DB45 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		FBF82FC527D892490010DB45 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FBFADA7228183264007A257E /* GADBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GADBannerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,17 +58,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DF6C397315C8397311422C1 /* Pods_myads.framework in Frameworks */,
+				E856CC49F8113C3CEF709DCC /* Pods_myads.framework in Frameworks */,
+				FBF82FBC27D435FF0010DB45 /* GoogleSignIn in Frameworks */,
+				FBF82FBF27D437B00010DB45 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3764A58908735110976EA856 /* Frameworks */ = {
+		36BA423BAB2AFEAD0F8D39D3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A0787122E92DB9066A0479C9 /* Pods_myads.framework */,
+				180294DDA0818767933379C0 /* Pods_myads.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -45,10 +78,14 @@
 		7555FF72242A565900829871 = {
 			isa = PBXGroup;
 			children = (
+				FBF82FC027D438230010DB45 /* GoogleService-Info.plist */,
+				FB49E3DB27C52F4000F3780F /* Localizable.strings */,
+				FB03AE7726FCA96100F94CBC /* Assets.xcassets */,
+				FB03AE2226FC98D800F94CBC /* Colors.xcassets */,
 				7555FF7D242A565900829871 /* myads */,
 				7555FF7C242A565900829871 /* Products */,
 				F88F8AB810E8D776AB2B6505 /* Pods */,
-				3764A58908735110976EA856 /* Frameworks */,
+				36BA423BAB2AFEAD0F8D39D3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,9 +100,13 @@
 		7555FF7D242A565900829871 /* myads */ = {
 			isa = PBXGroup;
 			children = (
+				FBF0DCBB2816E9F80001A433 /* Delegates */,
+				FB03AE7926FF461400F94CBC /* UI */,
+				FB03AE2426FC9CD700F94CBC /* Utils */,
+				FB03AE1F26FC94CE00F94CBC /* Views */,
 				7555FF82242A565900829871 /* ContentView.swift */,
-				7555FF8C242A565B00829871 /* Info.plist */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
+				7555FF8C242A565B00829871 /* Info.plist */,
 			);
 			path = myads;
 			sourceTree = "<group>";
@@ -73,11 +114,80 @@
 		F88F8AB810E8D776AB2B6505 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				90117118936DC0BDACA64F78 /* Pods-myads.debug.xcconfig */,
-				D6B3FC16C7930081B9DDB28B /* Pods-myads.release.xcconfig */,
+				CC5757402AAC8266D8338342 /* Pods-myads.debug.xcconfig */,
+				BFBA814969F8B833A2E69B84 /* Pods-myads.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		FB03AE1F26FC94CE00F94CBC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FB03AE2026FC953500F94CBC /* CircleImage.swift */,
+				FBF0DCB928118EB00001A433 /* PullToRefreshView.swift */,
+				FBFADA7228183264007A257E /* GADBannerViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FB03AE2426FC9CD700F94CBC /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				FB03AE2526FC9CF500F94CBC /* ImageLoader.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		FB03AE7926FF461400F94CBC /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				FBF82FC427D892360010DB45 /* Splash */,
+				FB03AE7A26FF462D00F94CBC /* Home */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		FB03AE7A26FF462D00F94CBC /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				FB49E3D327C52C9500F3780F /* HomeErrorType.swift */,
+				FBF82FC227D892200010DB45 /* HomeViewModel.swift */,
+				FB03AE7C26FF463800F94CBC /* Settings */,
+				FB03AE7B26FF463200F94CBC /* Overview */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		FB03AE7B26FF463200F94CBC /* Overview */ = {
+			isa = PBXGroup;
+			children = (
+				FB03AE7D26FF464F00F94CBC /* OverviewView.swift */,
+			);
+			path = Overview;
+			sourceTree = "<group>";
+		};
+		FB03AE7C26FF463800F94CBC /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				FBF82FB627D4355B0010DB45 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		FBF0DCBB2816E9F80001A433 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				FBF0DCBC2816EA0E0001A433 /* GoogleAuthDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		FBF82FC427D892360010DB45 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				FBF82FC527D892490010DB45 /* LaunchScreen.storyboard */,
+			);
+			path = Splash;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,16 +197,21 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "myads" */;
 			buildPhases = (
-				53A42F582C965BF870571F84 /* [CP] Check Pods Manifest.lock */,
+				E499D2120A68F575A78F8401 /* [CP] Check Pods Manifest.lock */,
 				7555FF77242A565900829871 /* Sources */,
 				7555FF79242A565900829871 /* Resources */,
 				3CEA98EF159D6154F7C4AF68 /* Frameworks */,
+				E0F748114E9D0B337F6CAF20 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = myads;
+			packageProductDependencies = (
+				FBF82FBB27D435FF0010DB45 /* GoogleSignIn */,
+				FBF82FBE27D437B00010DB45 /* FirebaseAnalytics */,
+			);
 			productName = myads;
 			productReference = 7555FF7B242A565900829871 /* myads.app */;
 			productType = "com.apple.product-type.application";
@@ -109,7 +224,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1130;
-				ORGANIZATIONNAME = orgName;
+				ORGANIZATIONNAME = "essie-cho";
 				TargetAttributes = {
 					7555FF7A242A565900829871 = {
 						CreatedOnToolsVersion = 11.3.1;
@@ -122,9 +237,13 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
+				ko,
 			);
 			mainGroup = 7555FF72242A565900829871;
+			packageReferences = (
+				FBF82FBA27D435FF0010DB45 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				FBF82FBD27D437B00010DB45 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -139,13 +258,35 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB03AE7826FCA96200F94CBC /* Assets.xcassets in Resources */,
+				FBF82FC127D438240010DB45 /* GoogleService-Info.plist in Resources */,
+				FB49E3D927C52F4000F3780F /* Localizable.strings in Resources */,
+				FBF82FC627D892490010DB45 /* LaunchScreen.storyboard in Resources */,
+				FB03AE2326FC98D800F94CBC /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		53A42F582C965BF870571F84 /* [CP] Check Pods Manifest.lock */ = {
+		E0F748114E9D0B337F6CAF20 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-myads/Pods-myads-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-myads/Pods-myads-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-myads/Pods-myads-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E499D2120A68F575A78F8401 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -174,12 +315,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBF82FB827D4355C0010DB45 /* SettingsView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				FBF82FC327D892210010DB45 /* HomeViewModel.swift in Sources */,
+				FBFADA7328183264007A257E /* GADBannerViewController.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+				FB03AE2626FC9CF500F94CBC /* ImageLoader.swift in Sources */,
+				FBF0DCBA28118EB10001A433 /* PullToRefreshView.swift in Sources */,
+				FB49E3D427C52C9500F3780F /* HomeErrorType.swift in Sources */,
+				FBF0DCBD2816EA0E0001A433 /* GoogleAuthDelegate.swift in Sources */,
+				FB03AE7E26FF464F00F94CBC /* OverviewView.swift in Sources */,
+				FB03AE2126FC953500F94CBC /* CircleImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		FB49E3DB27C52F4000F3780F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FB49E3DA27C52F4000F3780F /* en */,
+				FB49E3DC27C52F4200F3780F /* ko */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		7555FFA3242A565B00829871 /* Debug */ = {
@@ -221,7 +383,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -233,7 +395,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -281,14 +444,15 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -300,39 +464,69 @@
 		};
 		7555FFA6242A565B00829871 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 90117118936DC0BDACA64F78 /* Pods-myads.debug.xcconfig */;
+			baseConfigurationReference = CC5757402AAC8266D8338342 /* Pods-myads.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_PREVIEWS = YES;
+				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = myads/Info.plist;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.myads;
+				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"-l\"c++\"",
+					"-framework",
+					"\"AdSenseData\"",
+					"-ObjC",
+					"-framework",
+					"\"GoogleMobileAds\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.essie.myads;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		7555FFA7242A565B00829871 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D6B3FC16C7930081B9DDB28B /* Pods-myads.release.xcconfig */;
+			baseConfigurationReference = BFBA814969F8B833A2E69B84 /* Pods-myads.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_PREVIEWS = YES;
+				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = myads/Info.plist;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.myads;
+				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"-l\"c++\"",
+					"-framework",
+					"\"AdSenseData\"",
+					"-ObjC",
+					"-framework",
+					"\"GoogleMobileAds\"",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-l\"c++\"",
+					"-framework",
+					"\"AdSenseData\"",
+					"-ObjC",
+					"-framework",
+					"\"GoogleMobileAds\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.essie.myads;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -358,6 +552,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FBF82FBA27D435FF0010DB45 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+		FBF82FBD27D437B00010DB45 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FBF82FBB27D435FF0010DB45 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FBF82FBA27D435FF0010DB45 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		FBF82FBE27D437B00010DB45 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FBF82FBD27D437B00010DB45 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7555FF73242A565900829871 /* Project object */;
 }

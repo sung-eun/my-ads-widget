@@ -3,22 +3,10 @@ package com.essie.myads.domain.usecase
 import com.essie.myads.domain.entity.AdAccount
 import com.essie.myads.domain.entity.AdSupplier
 import com.essie.myads.domain.repository.IAccountRepository
-import com.essie.myads.domain.repository.IAuthRepository
 
-class AccountUseCase(
-    private val authRepository: IAuthRepository,
-    private val accountRepository: IAccountRepository
-) {
-    suspend fun fetchAndSaveAuthToken(authCode: String) {
-        authRepository.fetchAndSaveAuthToken(authCode)
-    }
-
-    suspend fun refreshToken() {
-        authRepository.refreshToken()
-    }
+class AccountUseCase(private val accountRepository: IAccountRepository) {
 
     suspend fun removeTokenInfo() {
-        authRepository.removeAuthToken()
         accountRepository.selectAccount(AdAccount("", "", AdSupplier.ADSENSE))
     }
 

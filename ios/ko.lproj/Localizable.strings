@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  myads
+
+  Created by sung-eun on 2022/02/22.
+  Copyright © 2022 essie-cho. All rights reserved.
+*/
+
+"error_no_account" = "Google 계정이 연결되지 않았습니다. SETTINGS 탭에서 Google 계정을 연결해주세요.";
+"error_no_permission_read_adsense" = "연결된 Google 계정의 AdSense 읽기 권한이 허용되지 않았습니다. 여기를 클릭하여 AdSense 읽기 권한을 허용해주세요.";
+
+"connect_account" = "Google 계정 연결하기";
+"message_confirm_disconnect_account" = "계정 연결을 해제하시겠습니까?";
+
+"unknown" = "Unknown";
+"account" = "계정";
+
+"balance" = "잔고";
+"estimated_earnings" = "예상 수익";
+"impressions" = "노출 수";
+"clicks" = "클릭 수";
+
+"last_7_days" = "최근 7일";
+
+"label_ok" = "확인";
+"label_cancel" = "취소";

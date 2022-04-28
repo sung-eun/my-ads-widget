@@ -1,6 +1,7 @@
 package com.myads.adsense.data.datasource.remote
 
 import com.essie.myads.domain.entity.DateRange
+import com.myads.adsense.data.HttpClientEngineProvider
 import com.myads.adsense.data.model.response.ResponseAccountList
 import com.myads.adsense.data.model.response.ResponsePayment
 import com.myads.adsense.data.model.response.ResponsePayments
@@ -8,29 +9,17 @@ import com.myads.adsense.data.model.response.ResponseReport
 import io.ktor.client.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
-import io.ktor.client.features.logging.*
 import io.ktor.client.request.*
 
 private const val BASE_URL = "https://adsense.googleapis.com/v2"
 
-class AdSenseRemoteDataSource(
-    private val headerProvider: IHttpHeaderProvider,
-    private val debuggable: Boolean
-) {
+class AdSenseRemoteDataSource(private val headerProvider: IHttpHeaderProvider) {
 
-    private val httpClient = HttpClient {
-        install(Logging) {
-            logger = object : Logger {
-                override fun log(message: String) {
-                    println(message)
-                }
-            }
-            level = if (debuggable) LogLevel.ALL else LogLevel.NONE
-        }
-
+    private val httpClient = HttpClient(HttpClientEngineProvider.httpClientEngine) {
         install(JsonFeature) {
             serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
                 ignoreUnknownKeys = true
+                useAlternativeNames = false
             })
         }
 
