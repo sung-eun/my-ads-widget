@@ -23,6 +23,14 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
+            GADBannerViewController()
+                .frame(
+                      minWidth: 0,
+                      maxWidth: .infinity,
+                      minHeight: 0,
+                      maxHeight: 50
+                )
+            
             TabView {
                 OverviewView().environmentObject(viewModel)
                     .tabItem {
@@ -37,14 +45,6 @@ struct ContentView: View {
                     }
             }
             .accentColor(Color("Green200"))
-            
-            GADBannerViewController()
-                .frame(
-                      minWidth: 0,
-                      maxWidth: .infinity,
-                      minHeight: 0,
-                      maxHeight: 60
-                )
         }
     }
 }

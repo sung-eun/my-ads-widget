@@ -15,6 +15,8 @@ struct OverviewView: View {
     
     var body: some View {
         ScrollView {
+            Spacer().frame(height: 12)
+            
             PullToRefreshSwiftUI(needRefresh: $refresh,
                                  coordinateSpaceName: "pullToRefresh")
             {
@@ -25,9 +27,6 @@ struct OverviewView: View {
             }
             VStack {
                 ErrorView(viewModel.error, viewModel.requestAdScopePermission)
-                if (viewModel.loading) {
-                    ProgressView()
-                }
                 OverviewContent(viewModel.dashboardData)
             }
         }
